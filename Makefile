@@ -19,7 +19,7 @@ PATHLIB = libft/
 		${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
 ${NAME}:	${LIBFT} ${OBJS}
-				${CC} ${CFLAGS} ${LIBFT} ${OBJS} -o ${NAME}
+				${CC} ${CFLAGS} ${LIBFT} ${OBJS} -lreadline -L /Users/$(USER)/.brew/opt/readline/lib -I /Users/$(USER)/.brew/opt/readline/include -o ${NAME}
 
 ${LIBFT}:
 			@make -C ${PATHLIB}

@@ -4,7 +4,7 @@
 
 int	main(void)
 {
-	const char *prompt = "minishell";
+	const char *prompt = "minishell>";
 	char		*a;
 	a = readline(prompt);
 	return (0);
