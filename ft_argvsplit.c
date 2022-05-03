@@ -6,7 +6,7 @@
 /*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 19:27:12 by jlopez-f          #+#    #+#             */
-/*   Updated: 2022/05/03 18:55:22 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/03 19:52:00 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ static char	**ft_split2(const char *str, char **result, int l)
 		i[1] = ft_countj(str, i[0]);
 		result[l] = malloc((i[1] - i[0] + 1) * sizeof(char));
 		if (!result)
-			return (ft_free(result, l));
+			return (ft_free(result));
 		i = ft_splitcopyspecial(str, result, i, l);
 		result[l][i[2]] = '\0';
 		l++;
