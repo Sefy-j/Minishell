@@ -1,4 +1,4 @@
-SRCS	= main.c \
+SRCS	= main.c ft_argvsplit.c ft_splitutils.c\
 		
 
 OBJS	= ${SRCS:.c=.o}
