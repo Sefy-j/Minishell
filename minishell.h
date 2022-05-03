@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:09:47 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/03 19:51:31 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/03 20:00:48 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,13 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include "libft/libft.h"
+
+typedef struct	s_list {
+	char	**cmds;
+	char	**files;
+	char	*dir;
+	s_list	*next;
+}				t_list;
 
 char	**ft_argvsplit(char const *str);
 char	**ft_free(char **result);
