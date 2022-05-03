@@ -1,4 +1,4 @@
-SRCS	= main.c ft_argvsplit.c ft_splitutils.c\
+SRCS	= main.c ft_argvsplit.c ft_splitutils.c parse_machine.c \
 		
 
 OBJS	= ${SRCS:.c=.o}
@@ -9,7 +9,7 @@ CC	= gcc
 
 RM	= rm -f
 
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror #-g3 -fsanitize=address
 
 LIBFT = libft/libft.a
 
