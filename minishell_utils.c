@@ -1,120 +1,73 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_argvsplit.c                                     :+:      :+:    :+:   */
+/*   ft_splitutils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/22 19:27:12 by jlopez-f          #+#    #+#             */
-/*   Updated: 2022/05/04 12:02:31 by pvillena         ###   ########.fr       */
+/*   Created: 2022/01/24 15:39:43 by jlopez-f          #+#    #+#             */
+/*   Updated: 2022/05/04 15:02:20 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	ft_countspecial(char const *str, int i)
+static char	*get_those_quotes(char *read, char quotes)
 {
-	if (str[i] == '\'')
+	char	*new_read;
+	char	*p;
+	char	*q;
+
+	p = read;
+	read = ft_strjoin(read, "\n");
+	free(p);
+	new_read = readline("> ");
+	while (!ft_strchr(new_read, (int)quotes))
 	{
-		i++;
-		while (str[i] != '\'' && str[i] != '\0')
-			i++;
-		i++;
+		p = new_read;
+		new_read = ft_strjoin(new_read, "\n");
+		free(p);
+		q = readline("> ");
+		p = new_read;
+		new_read = ft_strjoin(p, q);
+		free(p);
+		free(q);
 	}
-	else if (str[i] == '\"' )
-	{
-		i++;
-		while (str[i] != '\"' && str[i] != '\0')
-			i++;
-		i++;
-	}
-	return (i);
+	p = read;
+	read = ft_strjoin(read, new_read);
+	free(new_read);
+	free(p);
+	return (read);
 }
 
-static int	ft_count(char const *str)
+char	*check_those_quotes(char *read)
 {
-	int	cpal;
-	int	i;
+	char	quotes;
+	int		i;
 
-	cpal = 0;
+	quotes = 0;
 	i = 0;
-	while (str[i] != '\0')
+	while (read[i])
 	{
-		while (str[i] == ' ' && str[i] != '\0')
-			i++;
-		if (str[i] == '\0')
-			break ;
-		i = ft_countspecial(str, i);
-		while (str[i] != ' ' && str[i] != '\0')
-			i++;
-		if (str[i] == ' ' || str[i] == '\0')
-			cpal++;
+		if ((read[i]== '\'' || read[i] == '"') && quotes == 0)
+			quotes = read[i];
+		else if ((read[i]== '\'' || read[i] == '"') && (quotes == '"' || quotes == '\''))
+			quotes = 0;
+		i++;
 	}
-	return (cpal);
+	if (quotes == 0)
+		return (read);
+	else
+		return (get_those_quotes(read, quotes));
 }
 
-static int	ft_countj(const char *str, int i)
+char	**ft_free(char **result)
 {
-	int	com;
-
-	com = 0;
-	while (str[i] != ' ' && str[i] != '\0')
-	{
-		if (str[i] == '\'' )
-		{
-			com++;
-			i++;
-			while (str[i] != '\'' && str[i] != '\0')
-				i++;
-		}
-		else if (str[i] == '\"' )
-		{
-			com++;
-			i++;
-			while (str[i] != '\"' && str[i] != '\0')
-				i++;
-		}
-		else
-			i++;
-	}
-	return (i - com * 2);
-}
-
-static char	**ft_split2(const char *str, char **result, int l)
-{
-	int		*i;
-
-	i = malloc(sizeof(int) * 3);
-	i[0] = 0;
-	while (str[i[0]] != '\0' && l < ft_count(str))
-	{
-		i[2] = 0;
-		while (str[i[0]] == ' ')
-			i[0]++;
-		i[1] = ft_countj(str, i[0]);
-		result[l] = malloc((i[1] - i[0] + 1) * sizeof(char));
-		if (!result)
-			return (ft_free(result));
-		i = ft_splitcopyspecial(str, result, i, l);
-		result[l][i[2]] = '\0';
-		l++;
-	}
-	result[l] = NULL;
-	free(i);
-	return (result);
-}
-
-char	**ft_argvsplit(char const *str)
-{
-	int		l;
-	char	**result;
-
-	l = 0;
-	if (!str)
-		return (NULL);
-	result = malloc((ft_count(str) + 1) * sizeof(char *));
-	if (!result)
-		return (NULL);
-	result = ft_split2(str, result, l);
-	return (result);
+	int	i;
+	
+	i = -1;
+	while (result[++i])
+		free(result[i]);
+	free(result);
+	return (0);
 }
