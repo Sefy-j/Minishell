@@ -6,7 +6,7 @@
 /*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 19:27:12 by jlopez-f          #+#    #+#             */
-/*   Updated: 2022/05/04 17:31:47 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/04 20:25:47 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,17 @@ static int	ft_count(char const *str)
 		if (str[i] == '\0')
 			break ;
 		i = ft_countspecial(str, i);
-		while (str[i] != ' ' && str[i] != '\0')
+		while (!ft_strchr(SPSIGN, str[i]) && str[i] != '\0')
 			i++;
-		if (str[i] == ' ' || str[i] == '\0')
-			cpal++;
+		cpal++;
+		if (ft_strchr(SPSIGN, str[i]) && str[i] != '\0')
+		{
+			if(str[i] != ' ')
+				cpal++;
+			i++;
+			if ((str[i] == '<' && str[i - 1] == '<') || (str[i] == '>' && str[i - 1] == '>'))
+				i++;
+		}	
 	}
 	return (cpal);
 }
@@ -58,7 +65,14 @@ static int	ft_countj(const char *str, int i)
 	int	com;
 
 	com = 0;
-	while (str[i] != ' ' && str[i] != '\0')
+	if(ft_strchr(SPSIGN, str[i]) && str[i] != ' ' && str[i] != '\0')
+	{
+		i++;
+		if((str[i] == '<' && str[i - 1] == '<') || (str[i] == '>' && str[i - 1] == '>'))
+			i++;
+		return (i);
+	}
+	while (!ft_strchr(SPSIGN, str[i]) && str[i] != '\0')
 	{
 		if (str[i] == '\'' )
 		{

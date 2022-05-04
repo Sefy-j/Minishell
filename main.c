@@ -6,7 +6,7 @@
 /*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:38 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/04 17:56:59 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/04 20:31:09 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	main(void)
 	i = 0;
 	while (1)
 	{
-		read = readline("minishell> ");
+		read = readline(GREEN"minishell> "RESET);
 		read = check_those_quotes(read);
 		cmds = ft_argvsplit(read);
 		while (cmds[i])

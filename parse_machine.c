@@ -6,7 +6,7 @@
 /*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 17:35:05 by jlopez-f          #+#    #+#             */
-/*   Updated: 2022/05/04 19:09:22 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/04 20:50:25 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,19 +54,10 @@ t_data	*get_file(char **cmds, char dir, int *i, t_data *head)
 	str[0] = dir;
 	str[1] = '\0';
 	head->dir = ft_strjoin(head->dir, str);
-	if ((dir == RIGHTRIGHT || dir == LEFTLEFT) && !cmds[*i][2])
-		head->files = append_str(head->files, cmds[++(*i)]);
-	else if (!cmds[*i][1])
+	if (dir == RIGHTRIGHT || dir == LEFTLEFT)
 		head->files = append_str(head->files, cmds[++(*i)]);
 	else
-	{
-		if (dir == RIGHTRIGHT || dir == LEFTLEFT)
-			head->files = append_str(head->files,
-					ft_substr(cmds[*i], 2, ft_strlen(cmds[*i])));
-		else
-			head->files = append_str(head->files,
-					ft_substr(cmds[*i], 1, ft_strlen(cmds[*i])));
-	}
+		head->files = append_str(head->files, cmds[++(*i)]);
 	if (p)
 		free(p);
 	return (head);
@@ -91,7 +82,6 @@ t_data	*parse_machine(char **cmds)
 			head = get_file(cmds, RIGHT, &i, head);
 		else
 			head->cmds = append_str(head->cmds, cmds[i]);
-		print_matrix(head->cmds);
 	}
 	return (head);
 }
