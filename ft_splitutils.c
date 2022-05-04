@@ -6,7 +6,7 @@
 /*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 15:39:43 by jlopez-f          #+#    #+#             */
-/*   Updated: 2022/05/03 19:52:15 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/04 18:25:03 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,9 @@ char	*check_those_quotes(char *read)
 	i = 0;
 	while (read[i])
 	{
-		if ((read[i]== '\'' || read[i] == '"') && quotes == 0)
+		if ((read[i] == '\'' || read[i] == '"') && quotes == 0)
 			quotes = read[i];
-		else if ((read[i]== '\'' || read[i] == '"') && (quotes == '"' || quotes == '\''))
+		else if ((read[i] == '\'' || read[i] == '"') && quotes == read[i])
 			quotes = 0;
 		i++;
 	}
@@ -96,7 +96,7 @@ char	*check_those_quotes(char *read)
 char	**ft_free(char **result)
 {
 	int	i;
-	
+
 	i = -1;
 	while (result[++i])
 		free(result[i]);

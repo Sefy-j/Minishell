@@ -6,7 +6,7 @@
 /*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 19:27:12 by jlopez-f          #+#    #+#             */
-/*   Updated: 2022/05/03 19:52:00 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/04 17:31:47 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,14 @@ static int	ft_countj(const char *str, int i)
 	{
 		if (str[i] == '\'' )
 		{
-			com++;
+			com = 2;
 			i++;
 			while (str[i] != '\'' && str[i] != '\0')
 				i++;
 		}
 		else if (str[i] == '\"' )
 		{
-			com++;
+			com = 2;
 			i++;
 			while (str[i] != '\"' && str[i] != '\0')
 				i++;
@@ -77,7 +77,7 @@ static int	ft_countj(const char *str, int i)
 		else
 			i++;
 	}
-	return (i - com * 2);
+	return (i - com);
 }
 
 static char	**ft_split2(const char *str, char **result, int l)
