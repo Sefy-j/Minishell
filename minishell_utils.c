@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_argvsplit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 19:27:12 by jlopez-f          #+#    #+#             */
-/*   Updated: 2022/05/03 19:52:00 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/04 12:02:31 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	ft_countspecial(char const *str, int i)
 {
-	if (str[i] == '\'' )
+	if (str[i] == '\'')
 	{
 		i++;
 		while (str[i] != '\'' && str[i] != '\0')

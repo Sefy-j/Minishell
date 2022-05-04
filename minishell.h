@@ -6,7 +6,7 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:09:47 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/03 20:41:28 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/04 15:02:34 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,9 @@ enum {
 	RIGHTRIGHT = 52
 };
 
-char	**ft_argvsplit(char const *str);
 char	**ft_free(char **result);
-int	*ft_splitcopyspecial(const char *str, char **result, int *i, int l);
 char	*check_those_quotes(char *read);
 t_data	*parse_machine(char **cmds);
+char	**ft_split_cmds(char const *s1, char c);
 
 #endif

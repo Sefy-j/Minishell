@@ -6,7 +6,7 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:38 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/03 21:01:04 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/04 14:37:08 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,11 @@ int	main(void)
 	{
 		read = readline("minishell> ");
 		read = check_those_quotes(read);
-		cmds = ft_argvsplit(read);
+		cmds = ft_split_cmds(read, ' ');
+		int i = 0;
+		
+		while (cmds[i])
+			printf("cmds: %s\n", cmds[i++]);
 		//head = parse_machine(cmds);
 		if(*read)
 			add_history(read);

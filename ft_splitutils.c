@@ -3,46 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_splitutils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 15:39:43 by jlopez-f          #+#    #+#             */
-/*   Updated: 2022/05/03 19:52:15 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/04 15:02:20 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int	*ft_splitcopy(const char *str, char **result, int *i, int l)
-{
-	result[l][i[2]] = str[i[0]];
-	i[0]++;
-	i[2]++;
-	return (i);
-}
-
-int	*ft_splitcopyspecial(const char *str, char **result, int *i, int l)
-{
-	while (str[i[0]] != ' ' && str[i[0]] != '\0')
-	{
-		if (str[i[0]] == '\'' )
-		{
-			i[0]++;
-			while (str[i[0]] != '\'' && str[i[0]] != '\0')
-				i = ft_splitcopy(str, result, i, l);
-			i[0]++;
-		}
-		else if (str[i[0]] == '\"' )
-		{
-			i[0]++;
-			while (str[i[0]] != '\"' && str[i[0]] != '\0')
-				i = ft_splitcopy(str, result, i, l);
-			i[0]++;
-		}
-		else
-			i = ft_splitcopy(str, result, i, l);
-	}
-	return (i);
-}
 
 static char	*get_those_quotes(char *read, char quotes)
 {
