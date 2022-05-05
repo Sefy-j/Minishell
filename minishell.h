@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:09:47 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/05 13:01:39 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/05 17:38:35 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ char	**split_pipes(char const *str);
 char	**ft_free(char **result);
 int		*ft_splitcopyspecial(const char *str, char **result, int *i, int l);
 char	*check_those_quotes(char *read);
-t_data	*parse_machine(char **cmds);
 void	print_matrix(char **matrix);
 int		count_strs(char **arr);
+t_data	*parse_machine(char **cmds, int *i);
 
 #endif

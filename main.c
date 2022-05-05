@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:38 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/05 13:30:19 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/05 17:23:53 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ void	print_struct(t_data head)
 		while (head.files[++i])
 			printf("head files: %s\n", head.files[i]);
 	}
-	printf("head dir: %s\n", head.dir);
+	if (head.dir)
+		printf("head dir: %s\n", head.dir);
 }
 
 void	leaks(void)
@@ -51,14 +52,20 @@ void	leaks(void)
 
 t_data	*all_the_parsing_is_here(char *read)
 {
-	char	***cmds;
-	char	**pipes;
+	char	**cmds;
+	//char	**pipes;
 	t_data	*head;
 	t_data	*print;
 	int		i;
 
 	read = check_those_quotes(read);
-	pipes = split_pipes(read);
+	cmds = ft_argvsplit(read);
+	i = -1;
+	print_matrix(cmds);
+	head = parse_machine(cmds, &i);
+	while(cmds[i])
+		ft_lstadd_back(&head, parse_machine(cmds, &i));
+	/* pipes = split_pipes(read);
 	i = count_strs(pipes);
 	cmds = malloc(sizeof(char ***) * (i + 1));
 	pipes[i] = NULL;
@@ -72,13 +79,14 @@ t_data	*all_the_parsing_is_here(char *read)
 	head = parse_machine(cmds[0]);
 	while (pipes[i])
 		ft_lstadd_back(&head, parse_machine(cmds[i++]));
+	*/
 	print = head;
 	while (print)
 	{
 		print_struct(*print);
 		printf("---------------------------\n");
 		print = print->next;
-	}
+	} 
 	return(head);
 }
 
@@ -92,7 +100,6 @@ int	main(void)
 	{
 		read = readline(GREEN"minishell> "RESET);
 		head = all_the_parsing_is_here(read);
-		
 		if(*read)
 			add_history(read);
 		if (ft_strncmp(read, "exit", 100) == 0)

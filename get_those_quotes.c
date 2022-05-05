@@ -6,7 +6,7 @@
 /*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 20:26:43 by jlopez-f          #+#    #+#             */
-/*   Updated: 2022/05/04 20:27:23 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/05 16:58:13 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static char	*get_those_quotes(char *read, char quotes)
 	read = ft_strjoin(read, new_read);
 	free(new_read);
 	free(p);
+	check_those_quotes(read);
 	return (read);
 }
 

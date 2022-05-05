@@ -6,7 +6,7 @@
 /*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 19:27:12 by jlopez-f          #+#    #+#             */
-/*   Updated: 2022/05/04 20:25:47 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/05 17:45:58 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,12 @@ static int	ft_countj(const char *str, int i)
 static char	**ft_split2(const char *str, char **result, int l)
 {
 	int		*i;
+	int		count;
 
 	i = malloc(sizeof(int) * 3);
 	i[0] = 0;
-	while (str[i[0]] != '\0' && l < ft_count(str))
+	count = ft_count(str);
+	while (str[i[0]] != '\0' && l < count)
 	{
 		i[2] = 0;
 		while (str[i[0]] == ' ')
