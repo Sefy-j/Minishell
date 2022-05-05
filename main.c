@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:38 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/04 20:31:09 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/05 13:02:31 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,10 @@ void	leaks(void)
 int	main(void)
 {
 	char	*read;
-	char	**cmds;
+	char	***cmds;
+	char	**pipes;
 	t_data	*head;
+	t_data	*print;
 	int		i;
 
 	atexit(leaks);
@@ -62,20 +64,39 @@ int	main(void)
 	{
 		read = readline(GREEN"minishell> "RESET);
 		read = check_those_quotes(read);
-		cmds = ft_argvsplit(read);
-		while (cmds[i])
-			printf("cmds: %s\n", cmds[i++]);
-		head = parse_machine(cmds);
-		print_struct(*head);
+		pipes = split_pipes(read);
+		// printf("--------------PIPES--------------------------------\n");
+		// print_matrix(pipes);
+		// printf("--------------PIPES--------------------------------\n");
+		i = count_strs(pipes);
+		cmds = malloc(sizeof(char ***) * (i + 1));
+		pipes[i] = NULL;
+		i = 0;
+		while (pipes[i])
+		{
+			cmds[i] = ft_argvsplit(pipes[i]);
+			i++;
+		}
+		i = 1;
+		head = parse_machine(cmds[0]);
+		while (pipes[i])
+			ft_lstadd_back(&head, parse_machine(cmds[i++]));
+		print = head;
+		while (print)
+		{
+			print_struct(*print);
+			printf("---------------------------\n");
+			print = print->next;
+		}
 		if(*read)
 			add_history(read);
 		if (ft_strncmp(read, "exit", 100) == 0)
 		{
-			ft_free(cmds);
+			ft_free(*cmds);
 			exit(0);
 		}
 		i = 0;
-		ft_free(cmds);
+		ft_free(*cmds);
 		free(read);
 	}
 	return (0);

@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast.c                                       :+:      :+:    :+:   */
+/*   split_pipes.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/25 11:28:10 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/05 12:45:13 by pvillena         ###   ########.fr       */
+/*   Created: 2022/05/05 12:30:13 by pvillena          #+#    #+#             */
+/*   Updated: 2022/05/05 13:01:05 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-t_data	*ft_lstlast(t_data *lst)
+char	**split_pipes(char const *str)
 {
-	if (!lst)
-		return (NULL);
-	while (lst->next)
-		lst = lst->next;
-	return (lst);
+	char	**pipes;
+
+	pipes = ft_split(str, '|');
+	return (pipes);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_machine.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 17:35:05 by jlopez-f          #+#    #+#             */
-/*   Updated: 2022/05/04 20:50:25 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/05 13:08:50 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	**append_str(char **origin, char *append)
 	char	**ret;
 	int		i;
 
-	print_matrix(origin);
+	//print_matrix(origin);
 	ret = (char **)malloc(sizeof(char *) * (count_strs(origin) + 2));
 	i = 0;
 	if (origin)

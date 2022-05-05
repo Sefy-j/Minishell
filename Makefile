@@ -1,5 +1,5 @@
-SRCS	= main.c ft_argvsplit.c ft_splitutils.c get_those_quotes.c parse_machine.c\
-		
+SRCS	= main.c ft_argvsplit.c ft_splitutils.c get_those_quotes.c parse_machine.c \
+		split_pipes.c 
 
 OBJS	= ${SRCS:.c=.o}
 
