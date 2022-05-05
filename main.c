@@ -6,7 +6,7 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:38 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/05 13:12:56 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/05 13:30:19 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,54 +49,54 @@ void	leaks(void)
 	system("leaks minishell");
 }
 
-int	main(void)
+t_data	*all_the_parsing_is_here(char *read)
 {
-	char	*read;
 	char	***cmds;
 	char	**pipes;
 	t_data	*head;
 	t_data	*print;
 	int		i;
 
-	atexit(leaks);
+	read = check_those_quotes(read);
+	pipes = split_pipes(read);
+	i = count_strs(pipes);
+	cmds = malloc(sizeof(char ***) * (i + 1));
+	pipes[i] = NULL;
 	i = 0;
+	while (pipes[i])
+	{
+		cmds[i] = ft_argvsplit(pipes[i]);
+		i++;
+	}
+	i = 1;
+	head = parse_machine(cmds[0]);
+	while (pipes[i])
+		ft_lstadd_back(&head, parse_machine(cmds[i++]));
+	print = head;
+	while (print)
+	{
+		print_struct(*print);
+		printf("---------------------------\n");
+		print = print->next;
+	}
+	return(head);
+}
+
+int	main(void)
+{
+	char	*read;
+	t_data	*head;
+
+	atexit(leaks);
 	while (1)
 	{
 		read = readline(GREEN"minishell> "RESET);
-		read = check_those_quotes(read);
-		pipes = split_pipes(read);
-		// printf("--------------PIPES--------------------------------\n");
-		// print_matrix(pipes);
-		// printf("--------------PIPES--------------------------------\n");
-		i = count_strs(pipes);
-		cmds = malloc(sizeof(char ***) * (i + 1));
-		pipes[i] = NULL;
-		i = 0;
-		while (pipes[i])
-		{
-			cmds[i] = ft_argvsplit(pipes[i]);
-			i++;
-		}
-		i = 1;
-		head = parse_machine(cmds[0]);
-		while (pipes[i])
-			ft_lstadd_back(&head, parse_machine(cmds[i++]));
-		print = head;
-		while (print)
-		{
-			print_struct(*print);
-			printf("---------------------------\n");
-			print = print->next;
-		}
+		head = all_the_parsing_is_here(read);
+		
 		if(*read)
 			add_history(read);
 		if (ft_strncmp(read, "exit", 100) == 0)
-		{
-			ft_free(*cmds);
 			exit(0);
-		}
-		i = 0;
-		ft_free(*cmds);
 		free(read);
 	}
 	return (0);
