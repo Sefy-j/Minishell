@@ -6,7 +6,7 @@
 /*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:09:47 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/05 17:38:35 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/05 20:35:17 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ enum {
 	RIGHTRIGHT = 52
 };
 
-# define SPSIGN "<>| "
+# define SPSIGN "<>|"
 
 # define RESET				"\x1b[0m"
 # define WHITE				"\x1b[1m"

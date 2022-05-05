@@ -6,7 +6,7 @@
 /*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 19:27:12 by jlopez-f          #+#    #+#             */
-/*   Updated: 2022/05/05 17:45:58 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/05 21:56:59 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,25 +38,37 @@ static int	ft_count(char const *str)
 
 	cpal = 0;
 	i = 0;
+	if (!str[i])
+		cpal = 1;
 	while (str[i] != '\0')
 	{
-		while (str[i] == ' ' && str[i] != '\0')
-			i++;
-		if (str[i] == '\0')
-			break ;
-		i = ft_countspecial(str, i);
-		while (!ft_strchr(SPSIGN, str[i]) && str[i] != '\0')
-			i++;
-		cpal++;
-		if (ft_strchr(SPSIGN, str[i]) && str[i] != '\0')
+		while (str[i] && str[i] != ' ' && !ft_strchr(SPSIGN, str[i]))
 		{
-			if(str[i] != ' ')
-				cpal++;
-			i++;
-			if ((str[i] == '<' && str[i - 1] == '<') || (str[i] == '>' && str[i - 1] == '>'))
+			if (str[i] == '\"' || str[i] == '\'')
+				i = ft_countspecial(str, i);
+			else
 				i++;
-		}	
+		}
+		if (str[i] == ' ' && i && !ft_strchr(SPSIGN, str[i - 1]) && str[i - 1] != ' ' && str[i + 1] && str[i + 1] != ' ')
+			cpal++;
+		if (str[i] && ft_strchr(SPSIGN, str[i]))
+		{
+			cpal++;
+			printf("EH\n");
+			if (i && !ft_strchr(SPSIGN, str[i]))
+			{
+				cpal++;
+				printf("ESSS\n");
+			}
+		}
+		if (str[i])
+			i++;
+		if ((str[i] == '<' && str[i - 1] == '<') || (str[i] == '>' && str[i - 1] == '>'))
+			i++;
+		if (!str[i])
+			cpal++;
 	}
+	printf("Cpal: %d\n", cpal);
 	return (cpal);
 }
 
@@ -128,6 +140,8 @@ char	**ft_argvsplit(char const *str)
 	l = 0;
 	if (!str)
 		return (NULL);
+	while (*str == ' ')
+		str++;
 	result = malloc((ft_count(str) + 1) * sizeof(char *));
 	if (!result)
 		return (NULL);
