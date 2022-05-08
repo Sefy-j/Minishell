@@ -72,13 +72,13 @@ t_data	*parse_machine(char **cmds, int *i)
 	{
 		if (cmds[*i][0] == '|' && !cmds[*i][1])
 			break;
-		if (ft_strncmp(cmds[*i], ">>", 2) == 0)
+		if (ft_strncmp(cmds[*i], ">>", 2) == 0 && !cmds[*i][2])
 			head = get_file(cmds, RIGHTRIGHT, i, head);
-		else if (ft_strncmp(cmds[*i], "<<", 2) == 0)
+		else if (ft_strncmp(cmds[*i], "<<", 2) == 0 && !cmds[*i][2])
 			head = get_file(cmds, LEFTLEFT, i, head);
-		else if (ft_strncmp(cmds[*i], "<", 1) == 0)
+		else if (ft_strncmp(cmds[*i], "<", 1) == 0 && !cmds[*i][1])
 			head = get_file(cmds, LEFT, i, head);
-		else if (ft_strncmp(cmds[*i], ">", 1) == 0)
+		else if (ft_strncmp(cmds[*i], ">", 1) == 0 && !cmds[*i][1])
 			head = get_file(cmds, RIGHT, i, head);
 		else
 			head->cmds = append_str(head->cmds, cmds[*i]);

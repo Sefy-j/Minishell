@@ -36,10 +36,8 @@ static int	ft_count(char const *str)
 	int	cpal;
 	int	i;
 
-	cpal = 0;
+	cpal = 1;
 	i = 0;
-	if (!str[i])
-		cpal = 1;
 	while (str[i] != '\0')
 	{
 		while (str[i] && str[i] != ' ' && !ft_strchr(SPSIGN, str[i]))
@@ -49,26 +47,21 @@ static int	ft_count(char const *str)
 			else
 				i++;
 		}
-		if (str[i] == ' ' && i && !ft_strchr(SPSIGN, str[i - 1]) && str[i - 1] != ' ' && str[i + 1] && str[i + 1] != ' ')
-			cpal++;
-		if (str[i] && ft_strchr(SPSIGN, str[i]))
-		{
-			cpal++;
-			printf("EH\n");
-			if (i && !ft_strchr(SPSIGN, str[i]))
-			{
-				cpal++;
-				printf("ESSS\n");
-			}
-		}
-		if (str[i])
-			i++;
-		if ((str[i] == '<' && str[i - 1] == '<') || (str[i] == '>' && str[i - 1] == '>'))
-			i++;
 		if (!str[i])
+			break ;
+		if (ft_strchr(SPSIGN, str[i]))
+		{
+			if (i && !ft_strchr(SPSIGN, str[i - 1]) && str[i - 1] != ' ')
+				cpal++;
+			i++;
+			if ((str[i] == '<' && str[i - 1] == '<') || (str[i] == '>' && str[i - 1] == '>'))
+				i++;
+		}
+		while (str[i] == ' ')
+			i++;
+		if (str[i] && str[i] != ' ')
 			cpal++;
 	}
-	printf("Cpal: %d\n", cpal);
 	return (cpal);
 }
 
@@ -84,7 +77,7 @@ static int	ft_countj(const char *str, int i)
 			i++;
 		return (i);
 	}
-	while (!ft_strchr(SPSIGN, str[i]) && str[i] != '\0')
+	while (!ft_strchr(SPSIGN, str[i]) && str[i] != ' ' && str[i] != '\0')
 	{
 		if (str[i] == '\'' )
 		{

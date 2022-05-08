@@ -29,7 +29,7 @@ int	*ft_splitcopyspecial(const char *str, char **result, int *i, int l)
 			i = ft_splitcopy(str, result, i, l);
 		return (i);
 	}		
-	while (!ft_strchr(SPSIGN, str[*i]) && str[*i] != '\0')
+	while (!ft_strchr(SPSIGN, str[*i]) && str[*i] != ' ' && str[*i] != '\0')
 	{
 		if (str[i[0]] == '\'' )
 		{
