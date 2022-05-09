@@ -6,7 +6,7 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 18:31:04 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/09 14:26:16 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/09 14:41:12 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char	**exec_builtins(t_data *head, char **env)
 			ft_lstclear(&head);
 		if (env)
 			ft_free(env);
-		//clear_history();
+		clear_history();
 		exit(0);
 	}
 	return (env);

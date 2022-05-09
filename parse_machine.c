@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_machine.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 17:35:05 by jlopez-f          #+#    #+#             */
-/*   Updated: 2022/05/05 17:12:34 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/09 14:39:51 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ char	**append_str(char **origin, char *append)
 	{
 		while (origin && origin[i])
 		{
-			ret[i] = origin[i];
+			ret[i] = ft_strdup(origin[i]);
 			i++;
 		}
 	}
-	ret[i] = append;
+	ret[i] = ft_strdup(append);
 	ret[++i] = NULL;
 	return (ret);
 }

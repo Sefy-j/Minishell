@@ -6,7 +6,7 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:38 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/09 14:28:39 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/09 14:40:17 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ t_data	*all_the_parsing_is_here(char *read)
 	head = parse_machine(cmds, &i);
 	while(cmds[i])
 		ft_lstadd_back(&head, parse_machine(cmds, &i));
+	ft_free(cmds);
 	/* pipes = split_pipes(read);
 	i = count_strs(pipes);
 	cmds = malloc(sizeof(char ***) * (i + 1));
@@ -103,7 +104,6 @@ t_data	*all_the_parsing_is_here(char *read)
 		printf("---------------------------\n");
 		print = print->next;
 	}
-	free(cmds);
 	return(head);
 }
 
