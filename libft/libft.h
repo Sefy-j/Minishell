@@ -6,7 +6,7 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 22:54:33 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/05 12:46:38 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/05 20:47:18 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int		ft_lstsize(t_list *lst);
 t_data	*ft_lstlast(t_data *lst);
 void	ft_lstadd_back(t_data **lst, t_data *new);
 void	ft_lstdelone(t_list *lst, void (*del)(void *));
-void	ft_lstclear(t_list **lst);
+void	ft_lstclear(t_data **lst);
 int		ft_printf(const char *s, ...);
 void	ft_putchar_p(char c, int *print);
 void	ft_putstr_p(char *s, int *print);
@@ -87,4 +87,5 @@ void	ft_unsigned_putnbr_p(unsigned int n, int *print);
 void	ft_hex(unsigned int n, int *print, char c);
 void	ft_print_hex(unsigned int n, int *print, char c);
 void	ft_address(unsigned long int n, int *print);
+char	**ft_free(char **result);
 #endif

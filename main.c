@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:38 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/05 17:23:53 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/09 10:50:19 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,21 +90,31 @@ t_data	*all_the_parsing_is_here(char *read)
 	return(head);
 }
 
-int	main(void)
+int	main(int argc, char *argv[], char *envp[])
 {
 	char	*read;
 	t_data	*head;
+	char	**env;
 
+	if (argc != 1)
+		return (0);
+	if (argv[1])
+		return (0);
+	if (!envp)
+		return (0);
+	env = copy_matrix(envp);
+	change_shlvl(env);
 	atexit(leaks);
 	while (1)
 	{
 		read = readline(GREEN"minishell> "RESET);
-		head = all_the_parsing_is_here(read);
 		if(*read)
 			add_history(read);
-		if (ft_strncmp(read, "exit", 100) == 0)
-			exit(0);
-		free(read);
+		head = all_the_parsing_is_here(read);
+		if (!head)
+			continue ;
+		env = exec_builtins(head, env);
+		ft_lstclear(&head);
 	}
 	return (0);
 }

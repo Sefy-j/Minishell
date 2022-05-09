@@ -6,7 +6,7 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 15:13:16 by pvillena          #+#    #+#             */
-/*   Updated: 2022/01/27 18:17:40 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/05 20:50:15 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,6 @@ static size_t	ft_nbr_words(char const *s1, char c)
 			s1++;
 	}
 	return (nbr_wrds);
-}
-
-static void	ft_free(char **words, int i)
-{
-	while (--i)
-		free(words[i]);
-	free(words);
 }
 
 static int	ft_lenchar(char *s1, char c)
@@ -57,7 +50,7 @@ static char	**ft_aux_split(size_t nbr_wrds, char const *s1, char c, char **wrds)
 		wrds[i] = malloc(sizeof(char) * (j + 1));
 		if (!wrds[i])
 		{
-			ft_free(wrds, i);
+			ft_free(wrds);
 			return (NULL);
 		}
 		j = 0;

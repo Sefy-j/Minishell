@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:09:47 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/05 20:35:17 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/09 10:54:31 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,13 @@ char	*check_those_quotes(char *read);
 void	print_matrix(char **matrix);
 int		count_strs(char **arr);
 t_data	*parse_machine(char **cmds, int *i);
+void	ft_echo(char **args);
+void	ft_pwd(char **env);
+char	**ft_export(char **args, char **env);
+char	**ft_unset(char **args, char **env);
+void	change_shlvl(char **env);
+char	**copy_matrix(char **envp);
+char	**exec_builtins(t_data *head, char **env);
+char	**append_str(char **origin, char *append);
 
 #endif

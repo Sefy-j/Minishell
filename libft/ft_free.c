@@ -1,34 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/25 12:52:36 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/05 21:03:07 by pvillena         ###   ########.fr       */
+/*   Created: 2022/05/05 20:46:53 by pvillena          #+#    #+#             */
+/*   Updated: 2022/05/05 20:47:05 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstclear(t_data **lst)
+char	**ft_free(char **result)
 {
-	t_data	*temp;
+	int	i;
 
-	if (!*lst)
-		return ;
-	temp = *lst;
-	*lst = NULL;
-	while (temp)
-	{
-		if (temp->cmds)
-			ft_free(temp->cmds);
-		if (temp->files)
-			ft_free(temp->files);
-		if (temp->dir)
-			free(temp->dir);
-		free(temp);
-		temp = temp->next;
-	}
+	i = -1;
+	while (result[++i])
+		free(result[i]);
+	free(result);
+	return (0);
 }

@@ -7,6 +7,7 @@ SRCS	= ft_bzero.c ft_isalnum.c ft_isascii.c ft_isalpha.c ft_isdigit.c ft_isprint
 			ft_strmapi.c ft_striteri.c ft_lstnew.c ft_lstadd_front.c ft_lstsize.c \
 			ft_lstlast.c ft_lstadd_back.c ft_lstclear.c \
 			get_next_line.c ft_printf.c  ft_printf_utils.c ft_printf_hex.c \
+			ft_free.c
 
 OBJS	= ${SRCS:.c=.o}
 
