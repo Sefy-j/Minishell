@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:09:47 by pvillena          #+#    #+#             */
 /*   Updated: 2022/05/09 18:31:36 by pvillena         ###   ########.fr       */
@@ -55,6 +55,8 @@ void	change_shlvl(char **env);
 char	**copy_matrix(char **envp);
 char	**exec_builtins(t_data *head, char **env);
 char	**append_str(char **origin, char *append);
+void	ft_countpalspchar(const char *str, int *cpal, int *i);
+void	ft_countletcom(const char *str, int *com, int *i);
 size_t	ft_lenchar(char const *s, int c);
 
 #endif

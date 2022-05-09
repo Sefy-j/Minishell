@@ -6,7 +6,7 @@
 /*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 19:27:12 by jlopez-f          #+#    #+#             */
-/*   Updated: 2022/05/05 21:56:59 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/09 18:47:03 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,7 @@ static int	ft_count(char const *str)
 		}
 		if (!str[i])
 			break ;
-		if (ft_strchr(SPSIGN, str[i]))
-		{
-			if (i && !ft_strchr(SPSIGN, str[i - 1]) && str[i - 1] != ' ')
-				cpal++;
-			i++;
-			if ((str[i] == '<' && str[i - 1] == '<') || (str[i] == '>' && str[i - 1] == '>'))
-				i++;
-		}
+		ft_countpalspchar(str, &cpal, &i);
 		while (str[i] == ' ')
 			i++;
 		if (str[i] && str[i] != ' ')
@@ -65,37 +58,21 @@ static int	ft_count(char const *str)
 	return (cpal);
 }
 
-static int	ft_countj(const char *str, int i)
+static int	ft_countlet(const char *str, int i)
 {
 	int	com;
 
 	com = 0;
-	if(ft_strchr(SPSIGN, str[i]) && str[i] != ' ' && str[i] != '\0')
+	if (ft_strchr(SPSIGN, str[i]) && str[i] != ' ' && str[i] != '\0')
 	{
 		i++;
-		if((str[i] == '<' && str[i - 1] == '<') || (str[i] == '>' && str[i - 1] == '>'))
+		if ((str[i] == '<' && str[i - 1] == '<') \
+		|| (str[i] == '>' && str[i - 1] == '>'))
 			i++;
 		return (i);
 	}
 	while (!ft_strchr(SPSIGN, str[i]) && str[i] != ' ' && str[i] != '\0')
-	{
-		if (str[i] == '\'' )
-		{
-			com = 2;
-			i++;
-			while (str[i] != '\'' && str[i] != '\0')
-				i++;
-		}
-		else if (str[i] == '\"' )
-		{
-			com = 2;
-			i++;
-			while (str[i] != '\"' && str[i] != '\0')
-				i++;
-		}
-		else
-			i++;
-	}
+		ft_countletcom(str, &com, &i);
 	return (i - com);
 }
 
@@ -112,7 +89,7 @@ static char	**ft_split2(const char *str, char **result, int l)
 		i[2] = 0;
 		while (str[i[0]] == ' ')
 			i[0]++;
-		i[1] = ft_countj(str, i[0]);
+		i[1] = ft_countlet(str, i[0]);
 		result[l] = malloc((i[1] - i[0] + 1) * sizeof(char));
 		if (!result)
 			return (ft_free(result));
