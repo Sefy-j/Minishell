@@ -6,7 +6,7 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 17:35:05 by jlopez-f          #+#    #+#             */
-/*   Updated: 2022/05/09 14:39:51 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/09 14:44:32 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ char	**append_str(char **origin, char *append)
 			ret[i] = ft_strdup(origin[i]);
 			i++;
 		}
+		ft_free(origin);
 	}
 	ret[i] = ft_strdup(append);
 	ret[++i] = NULL;
