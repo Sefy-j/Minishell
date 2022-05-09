@@ -6,13 +6,13 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 11:24:22 by pvillena          #+#    #+#             */
-/*   Updated: 2022/01/25 11:27:28 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/09 20:31:07 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_lstsize(t_list *lst)
+int	ft_lstsize(t_data *lst)
 {
 	int	size;
 

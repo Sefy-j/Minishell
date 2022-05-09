@@ -6,7 +6,7 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 22:54:33 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/05 20:47:18 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/09 20:31:28 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ typedef struct s_data {
 
 t_list	*ft_lstnew(int content);
 void	ft_lstadd_front(t_list **lst, t_list *new);
-int		ft_lstsize(t_list *lst);
+int		ft_lstsize(t_data *lst);
 t_data	*ft_lstlast(t_data *lst);
 void	ft_lstadd_back(t_data **lst, t_data *new);
 void	ft_lstdelone(t_list *lst, void (*del)(void *));

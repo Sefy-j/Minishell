@@ -6,7 +6,7 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:38 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/09 14:40:17 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/09 22:03:09 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ void	leaks(void)
 t_data	*all_the_parsing_is_here(char *read)
 {
 	char	**cmds;
-	//char	**pipes;
 	t_data	*head;
 	t_data	*print;
 	int		i;
@@ -82,21 +81,6 @@ t_data	*all_the_parsing_is_here(char *read)
 	while(cmds[i])
 		ft_lstadd_back(&head, parse_machine(cmds, &i));
 	ft_free(cmds);
-	/* pipes = split_pipes(read);
-	i = count_strs(pipes);
-	cmds = malloc(sizeof(char ***) * (i + 1));
-	pipes[i] = NULL;
-	i = 0;
-	while (pipes[i])
-	{
-		cmds[i] = ft_argvsplit(pipes[i]);
-		i++;
-	}
-	i = 1;
-	head = parse_machine(cmds[0]);
-	while (pipes[i])
-		ft_lstadd_back(&head, parse_machine(cmds[i++]));
-	*/
 	print = head;
 	while (print)
 	{
@@ -112,12 +96,9 @@ int	main(int argc, char *argv[], char *envp[])
 	char	*read;
 	t_data	*head;
 	char	**env;
+	int		status;
 
-	if (argc != 1)
-		return (0);
-	if (argv[1])
-		return (0);
-	if (!envp)
+	if (argc != 1 || argv[1] || !envp)
 		return (0);
 	env = copy_matrix(envp);
 	change_shlvl(env);
@@ -133,11 +114,10 @@ int	main(int argc, char *argv[], char *envp[])
 			continue ;
 		}
 		head = all_the_parsing_is_here(read);
-		// if (ft_strncmp(*head->cmds, "exit", 10) == 0)
-		// {
-		// 	printf("exit here\n");
-		// 	exit(1);
-		env = exec_builtins(head, env);
+		if (ft_strncmp(head->cmds[0], "exit", 10) == 0)
+			exit(0);
+		status = pipex(head, &env);
+		printf("got here\n");
 		ft_lstclear(&head);
 	}
 	return (0);

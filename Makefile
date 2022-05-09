@@ -1,5 +1,6 @@
 SRCS	= main.c ft_argvsplit.c ft_splitutils.c get_those_quotes.c parse_machine.c \
-		builtins.c builtins_functions.c builtins_functions2.c minishell_utils.c 
+		builtins.c builtins_functions.c builtins_functions2.c minishell_utils.c pipex.c \
+		dup_fds.c 
 
 OBJS	= ${SRCS:.c=.o}
 
