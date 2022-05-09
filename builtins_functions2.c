@@ -6,7 +6,7 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 20:27:58 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/09 11:20:00 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/09 14:50:02 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,7 @@ char	**ft_unset(char **args, char **env)
 		}
 		if (flag != 0)
 			new_env = append_str(new_env, env[i]);
-		else
-			free(env[i]);
 	}
-	free(env);
+	ft_free(env);
 	return (new_env);
 }
