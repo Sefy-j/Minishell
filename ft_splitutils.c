@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_splitutils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 15:39:43 by jlopez-f          #+#    #+#             */
-/*   Updated: 2022/05/04 20:26:33 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/09 18:36:53 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,4 @@ int	*ft_splitcopyspecial(const char *str, char **result, int *i, int l)
 			i = ft_splitcopy(str, result, i, l);
 	}
 	return (i);
-}
-
-char	**ft_free(char **result)
-{
-	int	i;
-
-	i = -1;
-	while (result[++i])
-		free(result[i]);
-	free(result);
-	return (0);
 }

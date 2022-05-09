@@ -6,7 +6,7 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 20:27:58 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/09 14:50:02 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/09 18:38:03 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,19 @@ char	**ft_unset(char **args, char **env)
 	}
 	ft_free(env);
 	return (new_env);
+}
+
+void	ft_pwd(char **env)
+{
+	int	i;
+
+	i = -1;
+	while (env[++i])
+	{
+		if (ft_strncmp(env[i], "PWD=", 4) == 0)
+		{
+			printf("%s\n", ft_substr(env[i], 4, UINT_MAX));
+			return ;
+		}
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:09:47 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/09 10:54:31 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/09 18:31:36 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,6 @@ void	change_shlvl(char **env);
 char	**copy_matrix(char **envp);
 char	**exec_builtins(t_data *head, char **env);
 char	**append_str(char **origin, char *append);
+size_t	ft_lenchar(char const *s, int c);
 
 #endif
