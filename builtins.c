@@ -6,7 +6,7 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 18:31:04 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/05 21:23:13 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/09 14:26:16 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ char	**copy_matrix(char **envp)
 	char	**ret;
 
 	env = malloc(sizeof(char *) * (count_strs(envp) + 1));
+	if (!env)
+		return (NULL);
 	ret = env;
 	while (*envp)
 		*env++ = ft_strdup(*envp++);
@@ -47,8 +49,6 @@ char	**exec_builtins(t_data *head, char **env)
 {
 	if (ft_strncmp(head->cmds[0], "echo", 10) == 0)
 		ft_echo(head->cmds);
-	else if (ft_strncmp(head->cmds[0], "pwd", 10) == 0)
-		ft_pwd(env);
 	else if (ft_strncmp(head->cmds[0], "pwd", 10) == 0)
 		ft_pwd(env);
 	else if (ft_strncmp(head->cmds[0], "env", 10) == 0)
@@ -63,6 +63,7 @@ char	**exec_builtins(t_data *head, char **env)
 			ft_lstclear(&head);
 		if (env)
 			ft_free(env);
+		//clear_history();
 		exit(0);
 	}
 	return (env);

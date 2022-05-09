@@ -6,7 +6,7 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:38 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/09 10:50:19 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/09 14:28:39 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,20 @@ void	print_matrix(char **matrix)
 	}
 	while (matrix[i])
 		printf("my matrix: %s\n", matrix[i++]);
+}
+
+void	print_matrix_p(char **matrix)
+{
+	int i = 0;
+
+	if (!matrix)
+	{
+		printf("Matrix: NULL\n");
+		return;
+	}
+	printf("my matrix BIG: %p\n", matrix);
+	while (matrix[i])
+		printf("my matrix: %p\n", matrix[i++]);
 }
 
 void	print_struct(t_data head)
@@ -60,8 +74,10 @@ t_data	*all_the_parsing_is_here(char *read)
 
 	read = check_those_quotes(read);
 	cmds = ft_argvsplit(read);
+	free(read);
 	i = -1;
 	print_matrix(cmds);
+	print_matrix_p(cmds);
 	head = parse_machine(cmds, &i);
 	while(cmds[i])
 		ft_lstadd_back(&head, parse_machine(cmds, &i));
@@ -86,7 +102,8 @@ t_data	*all_the_parsing_is_here(char *read)
 		print_struct(*print);
 		printf("---------------------------\n");
 		print = print->next;
-	} 
+	}
+	free(cmds);
 	return(head);
 }
 
@@ -110,9 +127,16 @@ int	main(int argc, char *argv[], char *envp[])
 		read = readline(GREEN"minishell> "RESET);
 		if(*read)
 			add_history(read);
-		head = all_the_parsing_is_here(read);
-		if (!head)
+		else
+		{
+			free(read);
 			continue ;
+		}
+		head = all_the_parsing_is_here(read);
+		// if (ft_strncmp(*head->cmds, "exit", 10) == 0)
+		// {
+		// 	printf("exit here\n");
+		// 	exit(1);
 		env = exec_builtins(head, env);
 		ft_lstclear(&head);
 	}
