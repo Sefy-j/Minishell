@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_splitutils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 15:39:43 by jlopez-f          #+#    #+#             */
 /*   Updated: 2022/05/09 18:47:33 by jlopez-f         ###   ########.fr       */

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*   builtins_functions.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 17:49:19 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/05 19:40:22 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/09 18:45:17 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,6 @@ void	ft_echo(char **args)
 	if (ft_strncmp(args[1], "-n", 10) == 0)
 		return ;
 	printf("\n");
-}
-
-void	ft_pwd(char **env)
-{
-	int	i;
-
-	i = -1;
-	while (env[++i])
-	{
-		if (ft_strncmp(env[i], "PWD=", 4) == 0)
-		{
-			printf("%s\n", ft_substr(env[i], 4, UINT_MAX));
-			return ;
-		}
-	}
 }
 
 static char	**input_var(char **env, char *str)
@@ -78,17 +63,34 @@ static int	check_var(char *str)
 	return (1);
 }
 
+static char	*replace_line(char *replace, char *with)
+{
+	free(replace);
+	return (ft_strdup(with));
+}
+
 char	**ft_export(char **args, char **env)
 {
 	int		i;
 	int		flag;
+	size_t	len;
+	int		j;
 
 	i = 0;
 	while (args[++i])
 	{
 		flag = check_var(args[i]);
 		if (flag)
-			env = input_var(env, args[i]);
+		{
+			j = 0;
+			len = ft_lenchar(args[i], '=');
+			while (env[j] && ft_strncmp(args[i], env[j], len) != 0)
+				j++;
+			if (*env == NULL)
+				env = input_var(env, args[i]);
+			else
+				env[j] = replace_line(env[j], args[i]);
+		}
 	}
 	return (env);
 }
