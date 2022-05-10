@@ -6,7 +6,7 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:38 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/10 03:09:13 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/10 03:31:09 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int	main(int argc, char *argv[], char *envp[])
 		return (0);
 	env = copy_matrix(envp);
 	change_shlvl(env);
-	//atexit(leaks);
+	atexit(leaks);
 	while (1)
 	{
 		std[0] = dup(STDIN_FILENO);

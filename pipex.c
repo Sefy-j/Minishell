@@ -6,7 +6,7 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 19:38:27 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/10 02:51:22 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/10 03:59:35 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ static void	exec_cmds(t_data *temp, int pipe_fd[2], char ***env)
 
 	i = -1;
 	dup_fds(pipe_fd, temp);
-	close(pipe_fd[0]);
-	close(pipe_fd[1]);
+	// close(pipe_fd[0]);
+	// close(pipe_fd[1]);
 	if (execve(get_path(*env, temp->cmds[0]), temp->cmds, *env) == -1)
 	{
 		write(2, "command not found\n", 18);
@@ -87,8 +87,6 @@ int	pipex(t_data *head, char ***env)
 			dup2(pipe_fd[0], STDIN_FILENO);
 		close(pipe_fd[0]);
 		close(pipe_fd[1]);
-		//close(STDIN_FILENO);
-		//close(STDOUT_FILENO);
 		temp = temp->next;
 	}
 	close(STDIN_FILENO);
