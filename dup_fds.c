@@ -6,7 +6,7 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 21:11:19 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/09 22:46:58 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/10 03:08:09 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	dup_fds(int pipe_fd[2], t_data *head)
 {
 	int	infile;
 	int	outfile;
+	int	fd;
 
 	infile = -1;
 	outfile = -1;
@@ -58,15 +59,19 @@ void	dup_fds(int pipe_fd[2], t_data *head)
 	{
 		if (head->dir[infile] == LEFT)
 		{
-			dup2(open(head->files[infile], O_RDONLY), STDIN_FILENO);
+			fd = open(head->files[infile], O_RDONLY);
+			dup2(fd, STDIN_FILENO);
+			close(fd);
 		}
 	}
 	else if (outfile > 0)
 	{
 		if (head->dir[outfile] == RIGHT)
-			dup2(open(head->files[outfile], O_CREAT | O_RDWR | O_TRUNC, 0644), STDOUT_FILENO);
+			fd = open(head->files[outfile], O_CREAT | O_RDWR | O_TRUNC, 0644);
 		if (head->dir[outfile] == RIGHT)
-			dup2(open(head->files[outfile], O_CREAT | O_RDWR | O_APPEND), STDOUT_FILENO);
+			fd = open(head->files[outfile], O_CREAT | O_RDWR | O_APPEND);
+		dup2(fd, STDOUT_FILENO);
+		close(fd);
 	}
 	else if (head->next != NULL)
 		dup2(pipe_fd[1], STDOUT_FILENO);

@@ -6,7 +6,7 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 19:38:27 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/09 22:59:46 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/10 02:51:22 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	get_status(pid_t pid, int cmd_nbr)
 	int	status;
 
 	waitpid(pid, &status, 0);
-	while (--cmd_nbr > 0)
+	while (cmd_nbr-- > 0)
 		wait(NULL);
 	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
@@ -58,8 +58,6 @@ static void	exec_cmds(t_data *temp, int pipe_fd[2], char ***env)
 	int	i;
 
 	i = -1;
-	if (pipe_fd[0] < 0 || pipe_fd[0] < 0)
-		return ;
 	dup_fds(pipe_fd, temp);
 	close(pipe_fd[0]);
 	close(pipe_fd[1]);
@@ -93,6 +91,6 @@ int	pipex(t_data *head, char ***env)
 		//close(STDOUT_FILENO);
 		temp = temp->next;
 	}
-	//close(STDIN_FILENO);
+	close(STDIN_FILENO);
 	return (get_status(pid, ft_lstsize(head)));
 }

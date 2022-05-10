@@ -6,7 +6,7 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 22:54:33 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/09 20:31:28 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/10 03:05:32 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct s_data {
 	char			**cmds;
 	char			**files;
 	char			*dir;
+	int				std[2];
 	struct s_data	*next;
 }				t_data;
 

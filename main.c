@@ -6,7 +6,7 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:38 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/09 22:03:09 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/10 03:09:13 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,16 +96,21 @@ int	main(int argc, char *argv[], char *envp[])
 	char	*read;
 	t_data	*head;
 	char	**env;
+	int		std[2];
 	int		status;
 
 	if (argc != 1 || argv[1] || !envp)
 		return (0);
 	env = copy_matrix(envp);
 	change_shlvl(env);
-	atexit(leaks);
+	//atexit(leaks);
 	while (1)
 	{
+		std[0] = dup(STDIN_FILENO);
+		std[1] = dup(STDOUT_FILENO);
 		read = readline(GREEN"minishell> "RESET);
+		if (!read)
+			exit(1);
 		if(*read)
 			add_history(read);
 		else
@@ -117,7 +122,10 @@ int	main(int argc, char *argv[], char *envp[])
 		if (ft_strncmp(head->cmds[0], "exit", 10) == 0)
 			exit(0);
 		status = pipex(head, &env);
-		printf("got here\n");
+		dup2(STDIN_FILENO, std[0]);
+		dup2(STDOUT_FILENO, std[1]);
+		//printf("got here\n");
+		//while (1);
 		ft_lstclear(&head);
 	}
 	return (0);
