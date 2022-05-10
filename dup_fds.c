@@ -6,7 +6,7 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 21:11:19 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/10 04:28:08 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/10 04:37:13 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	dup_fds(int pipe_fd[2], t_data *head)
 			close(fd);
 		}
 	}
-	else if (outfile >= 0)
+	if (outfile >= 0)
 	{
 		if (head->dir[outfile] == RIGHT)
 		{
