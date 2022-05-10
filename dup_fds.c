@@ -6,7 +6,7 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 21:11:19 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/10 04:07:19 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/10 04:19:13 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void	dup_fds(int pipe_fd[2], t_data *head)
 	infile = -1;
 	outfile = -1;
 	fd = 0;
-	close(pipe_fd[0]);
 	if (head->files != NULL)
 	{
 		infile = get_infile(head);
@@ -77,7 +76,6 @@ void	dup_fds(int pipe_fd[2], t_data *head)
 		else if (head->dir[outfile] == RIGHTRIGHT)
 			fd = open(head->files[outfile], O_CREAT | O_RDWR | O_APPEND);
 		dup2(fd, STDOUT_FILENO);
-		close(pipe_fd[1]);
 		close(fd);
 	}
 	else if (head->next != NULL)
@@ -85,6 +83,5 @@ void	dup_fds(int pipe_fd[2], t_data *head)
 	else
 	{
 		dup2(head->std[1], STDOUT_FILENO);
-		close(pipe_fd[1]);
 	}
 }
