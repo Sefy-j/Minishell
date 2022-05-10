@@ -6,7 +6,7 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:38 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/10 20:13:26 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/10 20:49:35 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,22 @@ t_data	*all_the_parsing_is_here(char *read)
 	return(head);
 }
 
+int	is_env_builtin(t_data *head)
+{
+	if (ft_lstsize(head) > 1)
+		return (0);
+	else if (ft_strncmp(head->cmds[0], "cd", 10) == 0)
+		return (1);
+	else if (ft_strncmp(head->cmds[0], "export", 10) == 0)
+		return (1);
+	else if (ft_strncmp(head->cmds[0], "exit", 10) == 0)
+		return (1);
+	else if (ft_strncmp(head->cmds[0], "unset", 10) == 0)
+		return (1);
+	else
+		return (0);
+}
+
 int	main(int argc, char *argv[], char *envp[])
 {
 	char	*read;
@@ -106,11 +122,7 @@ int	main(int argc, char *argv[], char *envp[])
 			continue ;
 		}
 		head = all_the_parsing_is_here(read);
-		if (ft_strncmp(head->cmds[0], "exit", 10) == 0)
-			exit(0);
-		if (ft_lstsize(head) == 1 && (!ft_strncmp(head->cmds[0], "cd", 10)
-			|| !ft_strncmp(head->cmds[0], "export", 10)
-			|| !ft_strncmp(head->cmds[0], "unset", 10)))
+		if (is_env_builtin(head) == 1)
 			env = env_builtins(head, env);
 		else
 			status = pipex(head, env);

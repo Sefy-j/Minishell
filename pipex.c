@@ -6,7 +6,7 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 19:38:27 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/10 19:47:17 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/10 20:38:39 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,8 @@ static void	exec_cmds(t_data *temp, int pipe_fd[2], char **env)
 	dup_fds(pipe_fd, temp);
 	close(pipe_fd[0]);
 	close(pipe_fd[1]);
-	if (!ft_strncmp(temp->cmds[0], "cd", 5)
-		|| !ft_strncmp(temp->cmds[0], "export", 10)
-		|| !ft_strncmp(temp->cmds[0], "unset", 10))
+	if (ft_strncmp(temp->cmds[0], "cd", 5) == 0
+		|| ft_strncmp(temp->cmds[0], "unset", 10) == 0)
 		exit(0);
 	if (exec_builtins(temp, env) == 1)
 		exit(0);

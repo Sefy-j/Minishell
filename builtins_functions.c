@@ -6,7 +6,7 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 17:49:19 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/10 19:52:32 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/10 20:52:20 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,18 @@ static char	*replace_line(char *replace, char *with)
 	return (ft_strdup(with));
 }
 
+static int	print_matrix_export(char **matrix)
+{
+	int i = 0;
+
+	if (!matrix)
+		return (1);
+	while (matrix[i])
+		printf("declare -x %s\n", matrix[i++]);
+	return (1);
+}
+
+
 char	**ft_export(char **args, char **env)
 {
 	int		i;
@@ -56,6 +68,11 @@ char	**ft_export(char **args, char **env)
 	int		j;
 
 	i = 0;
+	if (!args[1])
+	{
+		print_matrix_export(env);
+		return (env);
+	}
 	while (args[++i])
 	{
 		flag = check_var(args[i]);
@@ -63,9 +80,9 @@ char	**ft_export(char **args, char **env)
 		{
 			j = 0;
 			len = ft_lenchar(args[i], '=');
-			while (env[j] && ft_strncmp(args[i], env[j], len) != 0)
+			while (env[j] && ft_strncmp(args[i], env[j], len + 1) != 0)
 				j++;
-			if (*env == NULL)
+			if (env[j] == NULL)
 				env = input_var(env, args[i]);
 			else
 				env[j] = replace_line(env[j], args[i]);
