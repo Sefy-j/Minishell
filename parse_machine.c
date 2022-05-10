@@ -6,7 +6,7 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 17:35:05 by jlopez-f          #+#    #+#             */
-/*   Updated: 2022/05/10 03:09:41 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/10 03:11:34 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ t_data	*parse_machine(char **cmds, int *i)
 	t_data	*head;
 
 	head = ft_calloc(sizeof(t_data), 1);
+	head->std[0] = dup(STDIN_FILENO);
+	head->std[1] = dup(STDOUT_FILENO);
 	while (cmds[++(*i)])
 	{
 		if (cmds[*i][0] == '|' && !cmds[*i][1])
