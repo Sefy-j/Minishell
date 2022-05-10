@@ -6,7 +6,7 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:38 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/10 19:46:34 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/10 20:13:26 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,12 @@ int	main(int argc, char *argv[], char *envp[])
 		head = all_the_parsing_is_here(read);
 		if (ft_strncmp(head->cmds[0], "exit", 10) == 0)
 			exit(0);
-		status = pipex(head, env);
+		if (ft_lstsize(head) == 1 && (!ft_strncmp(head->cmds[0], "cd", 10)
+			|| !ft_strncmp(head->cmds[0], "export", 10)
+			|| !ft_strncmp(head->cmds[0], "unset", 10)))
+			env = env_builtins(head, env);
+		else
+			status = pipex(head, env);
 		dup2(STDIN_FILENO, std[0]);
 		dup2(STDOUT_FILENO, std[1]);
 		ft_lstclear(&head);
