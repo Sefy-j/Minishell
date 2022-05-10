@@ -6,7 +6,7 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 21:11:19 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/10 04:19:13 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/10 04:28:08 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static int	get_infile(t_data *head)
 	int	i;
 	int	last;
 
+	if (!head->files)
+		return (-1);
 	i = -1;
 	last = -1;
 	while (head->dir[++i])
@@ -32,11 +34,13 @@ static int	get_outfile(t_data *head)
 	int	i;
 	int	last;
 
+	if (!head->files)
+		return (-1);
 	i = -1;
 	last = -1;
 	while (head->dir[++i])
 	{
-		if (head->dir[i] == RIGHT || head->dir[i] == RIGHT)
+		if (head->dir[i] == RIGHT || head->dir[i] == RIGHTRIGHT)
 			last = i;
 	}
 	return (last);
@@ -48,20 +52,14 @@ void	dup_fds(int pipe_fd[2], t_data *head)
 	int	outfile;
 	int	fd;
 
-	infile = -1;
-	outfile = -1;
+	infile = get_infile(head);
+	outfile = get_outfile(head);
 	fd = 0;
-	if (head->files != NULL)
-	{
-		infile = get_infile(head);
-		outfile = get_outfile(head);
-		printf("my outfile: %d\n", outfile);
-	}
 	if (infile >= 0)
 	{
 		if (head->dir[infile] == LEFT)
 		{
-			fd = open(head->files[infile], O_RDONLY);
+			fd = open(head->files[infile], O_RDWR);
 			dup2(fd, STDIN_FILENO);
 			close(fd);
 		}
