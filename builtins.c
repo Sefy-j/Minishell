@@ -6,7 +6,7 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 18:31:04 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/10 20:44:15 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/11 17:43:45 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ char	**env_builtins(t_data *head, char **env)
 		env = ft_export(head->cmds, env);
 	else if (ft_strncmp(head->cmds[0], "unset", 10) == 0)
 		env = ft_unset(head->cmds, env);
+	else if (ft_strncmp(head->cmds[0], "cd", 10) == 0)
+		env = ft_cd(head->cmds, env);
 	else if (ft_strncmp(head->cmds[0], "exit", 10) == 0)
 		exit(0);
 	return (env);
