@@ -5,88 +5,95 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/05 17:49:19 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/10 20:52:20 by pvillena         ###   ########.fr       */
+/*   Created: 2022/05/05 20:27:58 by pvillena          #+#    #+#             */
+/*   Updated: 2022/05/11 20:20:50 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	**input_var(char **env, char *str)
+char	**ft_unset(char **args, char **env)
 {
-	int		i;
 	char	**new_env;
+	int		i[2];
+	int		flag;
+	char	*p;
 
-	i = -1;
-	new_env = malloc(sizeof(char *) * (count_strs(env) + 2));
-	while (env[++i])
-		new_env[i] = ft_strdup(env[i]);
-	new_env[i] = ft_strdup(str);
-	new_env[++i] = NULL;
+	i[0] = -1;
+	new_env = NULL;
+	if (!env)
+		return (new_env);
+	while (env[++i[0]])
+	{
+		flag = 1;
+		i[1] = -1;
+		while (args[++i[1]])
+		{
+			p = ft_strjoin(args[i[1]], "=");
+			if (ft_strncmp(env[i[0]], p, ft_strlen(p)) == 0)
+				flag = 0;
+			free(p);
+		}
+		if (flag != 0)
+			new_env = append_str(new_env, env[i[0]]);
+	}
 	ft_free(env);
 	return (new_env);
 }
 
-static int	check_var(char *str)
+int	ft_pwd(char **env)
 {
-	if (!ft_strchr(str, '='))
-		return (0);
-	if (ft_isalpha(*str) == 0 && *str != '_')
-		return (0);
-	while (*str != '=')
+	int	i;
+
+	i = -1;
+	while (env[++i])
 	{
-		if (*str != '_' && ft_isalnum(*str) == 0)
-			return (0);
-		str++;
+		if (ft_strncmp(env[i], "PWD=", 4) == 0)
+		{
+			printf("%s\n", ft_substr(env[i], 4, UINT_MAX));
+			return (1);
+		}
 	}
-	return (1);
+	return (0);
 }
 
-static char	*replace_line(char *replace, char *with)
+int	print_matrix(char **matrix)
 {
-	free(replace);
-	return (ft_strdup(with));
-}
+	int	i;
 
-static int	print_matrix_export(char **matrix)
-{
-	int i = 0;
-
+	i = 0;
 	if (!matrix)
 		return (1);
 	while (matrix[i])
-		printf("declare -x %s\n", matrix[i++]);
+		printf("%s\n", matrix[i++]);
 	return (1);
 }
 
-
-char	**ft_export(char **args, char **env)
+int	ft_echo(char **args)
 {
-	int		i;
-	int		flag;
-	size_t	len;
-	int		j;
+	int	i;
+	int	new_line;
 
 	i = 0;
-	if (!args[1])
+	new_line = 1;
+	if (args[1] && args[1][0] == '-')
 	{
-		print_matrix_export(env);
-		return (env);
-	}
-	while (args[++i])
-	{
-		flag = check_var(args[i]);
-		if (flag)
+		new_line = 0;
+		while (args[1][++i])
 		{
-			j = 0;
-			len = ft_lenchar(args[i], '=');
-			while (env[j] && ft_strncmp(args[i], env[j], len + 1) != 0)
-				j++;
-			if (env[j] == NULL)
-				env = input_var(env, args[i]);
-			else
-				env[j] = replace_line(env[j], args[i]);
+			if ('n' != args[1][i])
+				new_line = 1;
 		}
 	}
-	return (env);
+	i = 1;
+	if (new_line == 0)
+		i = 2;
+	if (!args[i])
+		return (1);
+	printf("%s", args[i++]);
+	while (args[i])
+		printf(" %s", args[i++]);
+	if (new_line == 1)
+		printf("\n");
+	return (1);
 }

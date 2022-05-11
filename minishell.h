@@ -6,7 +6,7 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:09:47 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/10 19:46:45 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/11 20:05:18 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,14 @@ char	**split_pipes(char const *str);
 char	**ft_free(char **result);
 int		*ft_splitcopyspecial(const char *str, char **result, int *i, int l);
 char	*check_those_quotes(char *read);
-int	print_matrix(char **matrix);
+int		print_matrix(char **matrix);
 int		count_strs(char **arr);
 t_data	*parse_machine(char **cmds, int *i);
 int		ft_echo(char **args);
 int		ft_pwd(char **env);
 char	**ft_export(char **args, char **env);
 char	**ft_unset(char **args, char **env);
+char	**ft_cd(char **args, char **env);
 void	change_shlvl(char **env);
 char	**copy_matrix(char **envp);
 int		exec_builtins(t_data *head, char **env);
@@ -63,4 +64,9 @@ size_t	ft_lenchar(char const *s, int c);
 int		pipex(t_data *head, char **env);
 void	dup_fds(int pipe_fd[2], t_data *head);
 void	create_aux_file(t_data *head);
+void	ft_open_left(t_data *head, int i);
+void	ft_open_right(t_data *head, int i);
+void	ft_open_rightright(t_data *head, int i);
+void	could_not_open(char *file);
+char	*get_pwd(char **env);
 #endif

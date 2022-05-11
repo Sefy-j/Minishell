@@ -6,7 +6,7 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:38 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/10 20:49:35 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/11 19:20:57 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ int	main(int argc, char *argv[], char *envp[])
 			continue ;
 		}
 		head = all_the_parsing_is_here(read);
-		if (is_env_builtin(head) == 1)
+		if (head->cmds && is_env_builtin(head) == 1)
 			env = env_builtins(head, env);
 		else
 			status = pipex(head, env);
