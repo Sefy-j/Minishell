@@ -6,13 +6,13 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 21:11:19 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/10 18:29:23 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/11 20:10:47 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_writeheredoc(char *limiter, int *pfd)
+static void	ft_writeheredoc(char *limiter, int *pfd)
 {
 	size_t	len;
 	char	*line;
@@ -38,7 +38,8 @@ void	ft_writeheredoc(char *limiter, int *pfd)
 		free(line);
 	}
 }
-void	ft_readheredoc(t_data *head, int i)
+
+static void	ft_readheredoc(t_data *head, int i)
 {
 	int		pfd[2];
 	pid_t	pid;
@@ -51,7 +52,6 @@ void	ft_readheredoc(t_data *head, int i)
 	{
 		ft_writeheredoc(head->files[i], pfd);
 	}
-	printf("pid_t: %d\n", pid);
 	close(pfd[1]);
 	dup2(pfd[0], STDIN_FILENO);
 	close(pfd[0]);
@@ -60,40 +60,24 @@ void	ft_readheredoc(t_data *head, int i)
 
 void	dup_fds(int pipe_fd[2], t_data *head)
 {
-	int	fd;
-	int	outfile;
 	int	i;
 
-	outfile = 0;
 	i = -1;
-	fd = 0;
 	while (head->files && head->files[++i])
 	{
 		if (head->dir[i] == LEFT)
-		{
-			fd = open(head->files[i], O_RDWR | 0644);
-			dup2(fd, STDIN_FILENO);
-			close(fd);
-		}
+			ft_open_left(head, i);
 		else if (head->dir[i] == LEFTLEFT)
 			ft_readheredoc(head, i);
 		else if (head->dir[i] == RIGHT)
-		{
-			fd = open(head->files[i], O_CREAT | O_RDWR | O_TRUNC, 0644);
-			outfile = 1;
-			dup2(fd, STDOUT_FILENO);
-			close(fd);
-		}
+			ft_open_right(head, i);
 		else if (head->dir[i] == RIGHTRIGHT)
-		{
-			fd = open(head->files[i], O_CREAT | O_RDWR | O_APPEND);
-			outfile = 1;
-			dup2(fd, STDOUT_FILENO);
-			close(fd);
-		}
+			ft_open_rightright(head, i);
 	}
-	if (head->next != NULL && outfile == 0)
+	if (head->next != NULL && (!ft_strchr(head->dir, RIGHT)
+			&& !ft_strchr(head->dir, RIGHTRIGHT)))
 		dup2(pipe_fd[1], STDOUT_FILENO);
-	else if (outfile == 0)
+	else if (!ft_strchr(head->dir, RIGHT)
+		&& !ft_strchr(head->dir, RIGHTRIGHT))
 		dup2(head->std[1], STDOUT_FILENO);
 }

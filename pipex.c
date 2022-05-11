@@ -6,7 +6,7 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 19:38:27 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/10 20:38:39 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/11 19:27:33 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,9 @@ static void	exec_cmds(t_data *temp, int pipe_fd[2], char **env)
 	dup_fds(pipe_fd, temp);
 	close(pipe_fd[0]);
 	close(pipe_fd[1]);
-	if (ft_strncmp(temp->cmds[0], "cd", 5) == 0
+	if (!temp->cmds)
+		exit(0);
+	else if (ft_strncmp(temp->cmds[0], "cd", 5) == 0
 		|| ft_strncmp(temp->cmds[0], "unset", 10) == 0)
 		exit(0);
 	if (exec_builtins(temp, env) == 1)
@@ -83,7 +85,8 @@ int	pipex(t_data *head, char **env)
 		if (pipe(pipe_fd) == -1)
 			return (-1);
 		pid = fork();
-		printf("post_fork pid: %d\n", pid);
+		if (pid == -1)
+			exit(1);
 		if (pid == 0)
 			exec_cmds(temp, pipe_fd, env);
 		if (temp->next != NULL)
