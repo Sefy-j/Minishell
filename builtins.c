@@ -6,7 +6,7 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 18:31:04 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/11 17:43:45 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/11 20:08:36 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ char	**copy_matrix(char **envp)
 	*env = NULL;
 	return (ret);
 }
-
 
 char	**env_builtins(t_data *head, char **env)
 {

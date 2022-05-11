@@ -6,28 +6,11 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 20:57:52 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/11 18:46:59 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/11 20:09:42 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	*get_pwd(char **env)
-{
-	int		i;
-	char	*path;
-
-	i = -1;
-	while (env[++i])
-	{
-		if (ft_strncmp(env[i], "PWD=", 4) == 0)
-		{
-			path = ft_substr(env[i], 4, UINT_MAX);
-			return (path);
-		}
-	}
-	return (NULL);
-}
 
 char	*check_dir(char **args, char *path)
 {
@@ -99,7 +82,7 @@ char	*back_one_dir(char *path)
 
 char	*get_home(char **env)
 {
-	char *new_dir;
+	char	*new_dir;
 
 	while (*env)
 	{

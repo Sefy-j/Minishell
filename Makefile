@@ -1,6 +1,6 @@
 SRCS	= main.c ft_argvsplit.c ft_splitutils.c get_those_quotes.c parse_machine.c \
 		builtins.c export_funct.c builtins_functions.c minishell_utils.c pipex.c \
-		dup_fds.c cd_funct.c 
+		dup_fds.c cd_funct.c open_and_file_error.c
 
 OBJS	= ${SRCS:.c=.o}
 

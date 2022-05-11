@@ -6,7 +6,7 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:09:47 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/11 17:44:45 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/11 20:05:18 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,9 @@ size_t	ft_lenchar(char const *s, int c);
 int		pipex(t_data *head, char **env);
 void	dup_fds(int pipe_fd[2], t_data *head);
 void	create_aux_file(t_data *head);
+void	ft_open_left(t_data *head, int i);
+void	ft_open_right(t_data *head, int i);
+void	ft_open_rightright(t_data *head, int i);
+void	could_not_open(char *file);
+char	*get_pwd(char **env);
 #endif

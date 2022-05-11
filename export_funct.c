@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins_functions.c                               :+:      :+:    :+:   */
+/*   export_funct.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 17:49:19 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/10 20:52:20 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/11 20:11:49 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,15 @@ static char	*replace_line(char *replace, char *with)
 
 static int	print_matrix_export(char **matrix)
 {
-	int i = 0;
+	int	i;
 
+	i = 0;
 	if (!matrix)
 		return (1);
 	while (matrix[i])
 		printf("declare -x %s\n", matrix[i++]);
 	return (1);
 }
-
 
 char	**ft_export(char **args, char **env)
 {
