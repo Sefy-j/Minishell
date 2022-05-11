@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:38 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/11 19:20:57 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/11 20:44:04 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ int	main(int argc, char *argv[], char *envp[])
 		return (0);
 	env = copy_matrix(envp);
 	change_shlvl(env);
+	status = 0;
 	//atexit(leaks);
 	while (1)
 	{
@@ -121,6 +122,7 @@ int	main(int argc, char *argv[], char *envp[])
 			free(read);
 			continue ;
 		}
+		read = dollarsign(read, env, status);
 		head = all_the_parsing_is_here(read);
 		if (head->cmds && is_env_builtin(head) == 1)
 			env = env_builtins(head, env);
