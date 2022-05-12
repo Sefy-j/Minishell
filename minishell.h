@@ -6,7 +6,7 @@
 /*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:09:47 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/11 20:37:02 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/12 11:52:14 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <signal.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 # include "libft/libft.h"
 
 enum {
@@ -36,6 +38,8 @@ typedef struct s_special
 	int		dollen;
 	char	*new;
 }					t_special;
+
+extern int	g_interactive;
 
 # define SPSIGN "<>|"
 
@@ -81,5 +85,6 @@ void	ft_open_right(t_data *head, int i);
 void	ft_open_rightright(t_data *head, int i);
 void	could_not_open(char *file);
 char	*get_pwd(char **env);
+void	signals_handlers();
 
 #endif
