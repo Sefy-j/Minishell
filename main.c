@@ -6,27 +6,13 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:38 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/12 15:12:45 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/12 18:14:51 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int	g_interactive = 0;
-
-void	print_matrix_p(char **matrix)
-{
-	int i = 0;
-
-	if (!matrix)
-	{
-		printf("Matrix: NULL\n");
-		return;
-	}
-	printf("my matrix BIG: %p\n", matrix);
-	while (matrix[i])
-		printf("my matrix: %p\n", matrix[i++]);
-}
 
 void	print_struct(t_data head)
 {
@@ -79,7 +65,7 @@ char	**double_pipes_and_files(char **cmds)
 	return (cmds);
 }
 
-t_data	*all_the_parsing_is_here(char *read)
+t_data	*all_the_parsing_is_here(char *read, char **env, int status)
 {
 	char	**cmds;
 	t_data	*head;
@@ -90,6 +76,7 @@ t_data	*all_the_parsing_is_here(char *read)
 	read = check_those_pipes(read);
 	if(*read)
 		add_history(read);
+	read = dollarsign(read, env, status);
 	cmds = ft_argvsplit(read);
 	free(read);
 	cmds = double_pipes_and_files(cmds);
@@ -133,8 +120,8 @@ int	main(int argc, char *argv[], char *envp[])
 	env = copy_matrix(envp);
 	change_shlvl(env);
 	status = 0;
-	signals_handlers();
-	//atexit(leaks);
+	//signals_handlers();
+	atexit(leaks);
 	while (1)
 	{
 		std[0] = dup(STDIN_FILENO);
@@ -152,8 +139,7 @@ int	main(int argc, char *argv[], char *envp[])
 			printf("NOS FUIMOS");
 			exit(1);
 		}
-		read = dollarsign(read, env, status);
-		head = all_the_parsing_is_here(read);
+		head = all_the_parsing_is_here(read, env, status);
 		if (!head)
 			continue ;
 		if (head->cmds && is_env_builtin(head) == 1)

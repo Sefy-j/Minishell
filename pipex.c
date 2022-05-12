@@ -6,18 +6,31 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 19:38:27 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/11 19:27:33 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/12 18:14:43 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void	print_matrix_p(char **matrix)
+{
+	int i = 0;
+
+	if (!matrix)
+	{
+		printf("Matrix: NULL\n");
+		return;
+	}
+	printf("my matrix BIG: %p\n", matrix);
+	while (matrix[i])
+		printf("my matrix: %p\n", matrix[i++]);
+}
 static int	get_status(pid_t pid, int cmd_nbr)
 {
 	int	status;
 
 	waitpid(pid, &status, 0);
-	while (--cmd_nbr > 0)
+	while (cmd_nbr-- > 0)
 		wait(NULL);
 	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
@@ -29,32 +42,37 @@ static char	*get_path(char **envp, char *cmd1)
 {
 	char	**all_paths;
 	char	*check_path;
+	char	*p;
 	int		i;
 
 	if (!*cmd1 || !cmd1)
 		exit(1);
 	while (ft_strncmp(*envp, "PATH=", 5) != 0)
 		envp++;
-	i = -1;
 	if (access(cmd1, F_OK) == 0)
 		return (cmd1);
-	*envp = ft_substr(*envp, 5, INT_MAX);
-	all_paths = ft_split(envp[++i], ':');
 	cmd1 = ft_strjoin("/", cmd1);
+	p = ft_substr(*envp, 5, INT_MAX);
+	all_paths = ft_split(*envp, ':');
 	check_path = ft_strjoin(*all_paths, cmd1);
+	i = -1;
 	while (access(check_path, F_OK) != 0 && all_paths[++i])
 	{
 		free(check_path);
 		check_path = ft_strjoin(all_paths[i], cmd1);
 	}
+	print_matrix_p(all_paths);
 	free(cmd1);
 	ft_free(all_paths);
-	free(*envp);
+	free(p);
+	//system("leaks minishell");
 	return (check_path);
 }
 
 static void	exec_cmds(t_data *temp, int pipe_fd[2], char **env)
 {
+	char	*path;
+
 	dup_fds(pipe_fd, temp);
 	close(pipe_fd[0]);
 	close(pipe_fd[1]);
@@ -63,11 +81,17 @@ static void	exec_cmds(t_data *temp, int pipe_fd[2], char **env)
 	else if (ft_strncmp(temp->cmds[0], "cd", 5) == 0
 		|| ft_strncmp(temp->cmds[0], "unset", 10) == 0)
 		exit(0);
+	path = get_path(env, temp->cmds[0]);
+	printf("%p\n", path);
 	if (exec_builtins(temp, env) == 1)
 		exit(0);
-	else if (execve(get_path(env, temp->cmds[0]), temp->cmds, env) == -1)
+	else if (execve(path, temp->cmds, env) == -1)
 	{
 		write(2, "command not found\n", 18);
+		printf("exit here\n");
+		// ft_lstclear(&temp);
+		// ft_free(env);
+		free(path);
 		exit(127);
 	}
 }
@@ -85,10 +109,23 @@ int	pipex(t_data *head, char **env)
 		if (pipe(pipe_fd) == -1)
 			return (-1);
 		pid = fork();
+		printf("pid: %d\n", pid);
+		printf("got here\n");
 		if (pid == -1)
 			exit(1);
 		if (pid == 0)
+		{
+			// while (head != temp)
+			// {
+			// t_data	*aux;
+			// 	//printf("ead:")
+			// 	aux = head->next;
+			// 	ft_delone(&head);
+			// 	head = aux;
+			// }
+			//exit(0);
 			exec_cmds(temp, pipe_fd, env);
+		}
 		if (temp->next != NULL)
 			dup2(pipe_fd[0], STDIN_FILENO);
 		close(pipe_fd[0]);

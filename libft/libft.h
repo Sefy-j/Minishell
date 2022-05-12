@@ -6,7 +6,7 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 22:54:33 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/10 03:05:32 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/12 17:21:31 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	ft_lstadd_front(t_list **lst, t_list *new);
 int		ft_lstsize(t_data *lst);
 t_data	*ft_lstlast(t_data *lst);
 void	ft_lstadd_back(t_data **lst, t_data *new);
-void	ft_lstdelone(t_list *lst, void (*del)(void *));
+void	ft_delone(t_data **lst);
 void	ft_lstclear(t_data **lst);
 int		ft_printf(const char *s, ...);
 void	ft_putchar_p(char c, int *print);
