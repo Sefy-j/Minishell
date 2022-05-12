@@ -6,11 +6,13 @@
 /*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:38 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/11 20:44:04 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/12 12:05:10 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	g_interactive = 0;
 
 void	print_matrix_p(char **matrix)
 {
@@ -107,14 +109,25 @@ int	main(int argc, char *argv[], char *envp[])
 	env = copy_matrix(envp);
 	change_shlvl(env);
 	status = 0;
+	signals_handlers();
 	//atexit(leaks);
 	while (1)
 	{
 		std[0] = dup(STDIN_FILENO);
 		std[1] = dup(STDOUT_FILENO);
+		g_interactive = 1;
 		read = readline(GREEN"minishell> "RESET);
+		g_interactive = 0;
 		if (!read)
+		{
+			printf("exit\n");
 			exit(1);
+		}
+		if (*read == 4)
+		{
+			printf("NOS FUIMOS");
+			exit(1);
+		}
 		if(*read)
 			add_history(read);
 		else
