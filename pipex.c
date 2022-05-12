@@ -6,7 +6,7 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 19:38:27 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/12 18:14:43 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/12 19:04:33 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ static char	*get_path(char **envp, char *cmd1)
 	free(cmd1);
 	ft_free(all_paths);
 	free(p);
-	//system("leaks minishell");
 	return (check_path);
 }
 
@@ -88,10 +87,6 @@ static void	exec_cmds(t_data *temp, int pipe_fd[2], char **env)
 	else if (execve(path, temp->cmds, env) == -1)
 	{
 		write(2, "command not found\n", 18);
-		printf("exit here\n");
-		// ft_lstclear(&temp);
-		// ft_free(env);
-		free(path);
 		exit(127);
 	}
 }
@@ -114,18 +109,7 @@ int	pipex(t_data *head, char **env)
 		if (pid == -1)
 			exit(1);
 		if (pid == 0)
-		{
-			// while (head != temp)
-			// {
-			// t_data	*aux;
-			// 	//printf("ead:")
-			// 	aux = head->next;
-			// 	ft_delone(&head);
-			// 	head = aux;
-			// }
-			//exit(0);
 			exec_cmds(temp, pipe_fd, env);
-		}
 		if (temp->next != NULL)
 			dup2(pipe_fd[0], STDIN_FILENO);
 		close(pipe_fd[0]);
