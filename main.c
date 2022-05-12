@@ -6,7 +6,7 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:38 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/12 15:08:40 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/12 15:12:45 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,19 +53,12 @@ void	leaks(void)
 	system("leaks minishell");
 }
 
-t_data	*all_the_parsing_is_here(char *read)
+char	**double_pipes_and_files(char **cmds)
 {
-	char	**cmds;
-	t_data	*head;
-	t_data	*temp;
-	int		i;
+	int	i;
 
-	read = check_those_quotes(read);
-	read = check_those_pipes(read);
-	if(*read)
-		add_history(read);
-	cmds = ft_argvsplit(read);
-	print_matrix(cmds);
+	if (!cmds)
+		return (NULL);
 	i = -1;
 	while (cmds[++i])
 	{
@@ -78,12 +71,30 @@ t_data	*all_the_parsing_is_here(char *read)
 		if ((cmds[i][0] == '<' || cmds[i][0] == '>')
 			&& (cmds[i + 1][0] == '<' || cmds[i + 1][0] == '>'))
 		{	
-			write(2, "syntax error\n", 13);
+			write(2, "missing files\n", 14);
 			free(cmds);
 			return (NULL);
 		}
 	}
+	return (cmds);
+}
+
+t_data	*all_the_parsing_is_here(char *read)
+{
+	char	**cmds;
+	t_data	*head;
+	t_data	*temp;
+	int		i;
+
+	read = check_those_quotes(read);
+	read = check_those_pipes(read);
+	if(*read)
+		add_history(read);
+	cmds = ft_argvsplit(read);
 	free(read);
+	cmds = double_pipes_and_files(cmds);
+	if (!cmds)
+		return (NULL);
 	i = -1;
 	head = parse_machine(cmds, &i);
 	temp = head;
