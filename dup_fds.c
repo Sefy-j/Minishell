@@ -6,7 +6,7 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 21:11:19 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/11 20:10:47 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/12 14:36:58 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,9 @@ static void	ft_readheredoc(t_data *head, int i)
 	pid = fork();
 	if (pid == 0)
 	{
+		g_interactive = 1;
 		ft_writeheredoc(head->files[i], pfd);
+		g_interactive = 0;
 	}
 	close(pfd[1]);
 	dup2(pfd[0], STDIN_FILENO);

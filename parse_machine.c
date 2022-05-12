@@ -6,23 +6,11 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 17:35:05 by jlopez-f          #+#    #+#             */
-/*   Updated: 2022/05/10 13:38:02 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/12 15:03:17 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	count_strs(char **arr)
-{
-	int	length;
-
-	length = 0;
-	if (!arr)
-		return (length);
-	while (arr[length])
-		length++;
-	return (length);
-}
 
 char	**append_str(char **origin, char *append)
 {

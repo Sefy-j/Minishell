@@ -6,7 +6,7 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:29:26 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/11 20:05:11 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/12 15:03:25 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,18 @@ size_t	ft_lenchar(char const *s, int c)
 	while (s[len] != c && s[len])
 		len++;
 	return (len);
+}
+
+int	count_strs(char **arr)
+{
+	int	length;
+
+	length = 0;
+	if (!arr)
+		return (length);
+	while (arr[length])
+		length++;
+	return (length);
 }
 
 char	*get_pwd(char **env)

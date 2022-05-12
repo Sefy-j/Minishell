@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:09:47 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/12 11:52:14 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/12 14:26:02 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,7 @@ void	ft_open_rightright(t_data *head, int i);
 void	could_not_open(char *file);
 char	*get_pwd(char **env);
 void	signals_handlers();
+void	rl_replace_line(char *s, int a);
+char	*check_those_pipes(char *read);
 
 #endif

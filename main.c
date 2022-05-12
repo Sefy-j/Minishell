@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:38 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/12 12:05:10 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/12 15:08:40 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,26 +57,39 @@ t_data	*all_the_parsing_is_here(char *read)
 {
 	char	**cmds;
 	t_data	*head;
-	t_data	*print;
+	t_data	*temp;
 	int		i;
 
 	read = check_those_quotes(read);
+	read = check_those_pipes(read);
+	if(*read)
+		add_history(read);
 	cmds = ft_argvsplit(read);
+	print_matrix(cmds);
+	i = -1;
+	while (cmds[++i])
+	{
+		if (cmds[i][0] == '|' && cmds[i + 1][0] == '|')
+		{
+			write(2, "syntax error\n", 13);
+			free(cmds);
+			return (NULL);
+		}
+		if ((cmds[i][0] == '<' || cmds[i][0] == '>')
+			&& (cmds[i + 1][0] == '<' || cmds[i + 1][0] == '>'))
+		{	
+			write(2, "syntax error\n", 13);
+			free(cmds);
+			return (NULL);
+		}
+	}
 	free(read);
 	i = -1;
-	print_matrix(cmds);
-	print_matrix_p(cmds);
 	head = parse_machine(cmds, &i);
+	temp = head;
 	while(cmds[i])
 		ft_lstadd_back(&head, parse_machine(cmds, &i));
 	ft_free(cmds);
-	print = head;
-	while (print)
-	{
-		print_struct(*print);
-		printf("---------------------------\n");
-		print = print->next;
-	}
 	return(head);
 }
 
@@ -128,15 +141,10 @@ int	main(int argc, char *argv[], char *envp[])
 			printf("NOS FUIMOS");
 			exit(1);
 		}
-		if(*read)
-			add_history(read);
-		else
-		{
-			free(read);
-			continue ;
-		}
 		read = dollarsign(read, env, status);
 		head = all_the_parsing_is_here(read);
+		if (!head)
+			continue ;
 		if (head->cmds && is_env_builtin(head) == 1)
 			env = env_builtins(head, env);
 		else

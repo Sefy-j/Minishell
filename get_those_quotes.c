@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_those_quotes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 20:26:43 by jlopez-f          #+#    #+#             */
-/*   Updated: 2022/05/05 16:58:13 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/12 14:37:05 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,17 @@ static char	*get_those_quotes(char *read, char quotes)
 	p = read;
 	read = ft_strjoin(read, "\n");
 	free(p);
+	g_interactive = 1;
 	new_read = readline("> ");
+	g_interactive = 0;
 	while (!ft_strchr(new_read, (int)quotes))
 	{
 		p = new_read;
 		new_read = ft_strjoin(new_read, "\n");
 		free(p);
+		g_interactive = 1;
 		q = readline("> ");
+		g_interactive = 1;
 		p = new_read;
 		new_read = ft_strjoin(p, q);
 		free(p);
