@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_those_quotes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 20:26:43 by jlopez-f          #+#    #+#             */
-/*   Updated: 2022/05/12 19:36:23 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/17 19:14:24 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,13 @@ static char	*get_those_quotes(char *read, char quotes)
 	p = read;
 	read = ft_strjoin(read, "\n");
 	free(p);
-	g_interactive = 1;
+	g_interactive = 2;
 	new_read = readline("> ");
+	if (!new_read || g_interactive == 3)
+	{
+		g_interactive = 0;
+		return (ft_strdup(""));
+	}
 	g_interactive = 0;
 	while (read && !ft_strchr(new_read, (int)quotes))
 	{
@@ -31,12 +36,10 @@ static char	*get_those_quotes(char *read, char quotes)
 		free(p);
 		g_interactive = 2;
 		q = readline("> ");
-		if (!*q)
+		if (!*q || g_interactive == 3)
 		{
-			printf("g_intera: %d\n", g_interactive);
-			fflush(0);
 			g_interactive = 0;
-			return ("");
+			return (ft_strdup(""));
 		}
 		g_interactive = 0;
 		p = new_read;

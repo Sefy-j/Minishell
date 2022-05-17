@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 19:38:27 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/12 19:04:33 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/17 19:55:50 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,10 @@ int	pipex(t_data *head, char **env)
 		if (pid == -1)
 			exit(1);
 		if (pid == 0)
+		{
+			signals_handlers_child();
 			exec_cmds(temp, pipe_fd, env);
+		}
 		if (temp->next != NULL)
 			dup2(pipe_fd[0], STDIN_FILENO);
 		close(pipe_fd[0]);

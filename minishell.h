@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:09:47 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/12 14:26:02 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/17 19:53:51 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <signal.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <termios.h>
 # include "libft/libft.h"
 
 enum {
@@ -85,8 +86,11 @@ void	ft_open_right(t_data *head, int i);
 void	ft_open_rightright(t_data *head, int i);
 void	could_not_open(char *file);
 char	*get_pwd(char **env);
-void	signals_handlers();
+void	signals_handlers(void);
 void	rl_replace_line(char *s, int a);
 char	*check_those_pipes(char *read);
+void	no_ctrlprint(void);
+void 	rl_redisplay (void);
+void	signals_handlers_child(void);
 
 #endif

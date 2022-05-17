@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_those_pipes.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 14:13:18 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/12 19:06:50 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/17 19:14:46 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*check_those_pipes(char *read)
 	char	*new_read;
 	char	*p;
 
+	if (!read || !*read)
+		return (ft_strdup(""));
 	i = ft_strlen(read);
 	while (i >= 0 && (read[i] <= 32 || read[i] >= 127))
 	{
@@ -25,8 +27,13 @@ char	*check_those_pipes(char *read)
 	}
 	if (read[i] == '|')
 	{
-		g_interactive = 1;
+		g_interactive = 2;
 		new_read = readline("> ");
+		if (!new_read || g_interactive == 3)
+		{
+			g_interactive = 0;
+			return (ft_strdup(""));
+		}
 		g_interactive = 0;
 		p = read;
 		read = ft_strjoin(read, new_read);

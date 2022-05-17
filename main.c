@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:38 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/17 17:01:46 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/17 19:18:03 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ int	main(int argc, char *argv[], char *envp[])
 		return (0);
 	env = copy_matrix(envp);
 	change_shlvl(env);
+	no_ctrlprint();
 	status = 0;
 	signals_handlers();
 	//atexit(leaks);
@@ -132,12 +133,7 @@ int	main(int argc, char *argv[], char *envp[])
 		g_interactive = 0;
 		if (!read)
 		{
-			printf("exit\n");
-			exit(1);
-		}
-		if (*read == 4)
-		{
-			printf("NOS FUIMOS");
+			write(1, "exit\n", 6);
 			exit(1);
 		}
 		head = all_the_parsing_is_here(read, env, status);
