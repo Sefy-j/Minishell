@@ -6,7 +6,7 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 20:26:43 by jlopez-f          #+#    #+#             */
-/*   Updated: 2022/05/12 14:37:05 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/12 19:36:23 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,25 @@ static char	*get_those_quotes(char *read, char quotes)
 	g_interactive = 1;
 	new_read = readline("> ");
 	g_interactive = 0;
-	while (!ft_strchr(new_read, (int)quotes))
+	while (read && !ft_strchr(new_read, (int)quotes))
 	{
 		p = new_read;
 		new_read = ft_strjoin(new_read, "\n");
 		free(p);
-		g_interactive = 1;
+		g_interactive = 2;
 		q = readline("> ");
-		g_interactive = 1;
+		if (!*q)
+		{
+			printf("g_intera: %d\n", g_interactive);
+			fflush(0);
+			g_interactive = 0;
+			return ("");
+		}
+		g_interactive = 0;
 		p = new_read;
 		new_read = ft_strjoin(p, q);
-		free(p);
 		free(q);
+		free(p);
 	}
 	p = read;
 	read = ft_strjoin(read, new_read);

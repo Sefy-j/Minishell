@@ -6,7 +6,7 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 14:13:18 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/12 14:35:24 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/12 19:06:50 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ char	*check_those_pipes(char *read)
 	}
 	if (read[i] == '|')
 	{
-		new_read = readline("> ");
-		p = read;
 		g_interactive = 1;
-		read = ft_strjoin(read, new_read);
+		new_read = readline("> ");
 		g_interactive = 0;
+		p = read;
+		read = ft_strjoin(read, new_read);
 		free(p);
 		free(new_read);
 		read = check_those_quotes(read);

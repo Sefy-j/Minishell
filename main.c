@@ -6,7 +6,7 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:38 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/12 19:03:59 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/17 17:01:46 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,9 @@ char	**double_pipes_and_files(char **cmds)
 			free(cmds);
 			return (NULL);
 		}
-		if ((cmds[i][0] == '<' || cmds[i][0] == '>')
-			&& (cmds[i + 1][0] == '<' || cmds[i + 1][0] == '>'))
+		if (((cmds[i][0] == '<' || cmds[i][0] == '>')
+			&& (cmds[i + 1] && (cmds[i + 1][0] == '<'
+			|| cmds[i + 1][0] == '>'))))
 		{	
 			write(2, "missing files\n", 14);
 			free(cmds);

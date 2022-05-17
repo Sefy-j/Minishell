@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 10:14:45 by jlopez-f          #+#    #+#             */
-/*   Updated: 2022/05/12 11:49:03 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/12 19:36:38 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,19 @@ void	handler_ctrlc(int sig)
 {
 	sig = 0;
 	sig++;
-	if (g_interactive)
+	if (g_interactive == 1)
 	{
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		printf("\n");
 		rl_redisplay();
+	}
+	else if (g_interactive == 2)
+	{
+		rl_replace_line("\r", 0);
+		rl_on_new_line();
+		printf("\n");
+		g_interactive = 3;
 	}
 	else
 		printf("\n");
