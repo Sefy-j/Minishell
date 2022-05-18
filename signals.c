@@ -6,7 +6,7 @@
 /*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 10:14:45 by jlopez-f          #+#    #+#             */
-/*   Updated: 2022/05/18 19:30:03 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/18 20:06:45 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	handler_ctrlslash(int sig)
 		rl_redisplay();
 		return ;
 	}
-	printf("^\\Quit: 3\n");
+	ft_putstr_fd("^\\Quit: 3\n", 1);
 }
 
 void	signals_handlers(void)

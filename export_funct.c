@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_funct.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 17:49:19 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/11 20:11:49 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/18 20:05:56 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,11 @@ static int	print_matrix_export(char **matrix)
 	if (!matrix)
 		return (1);
 	while (matrix[i])
-		printf("declare -x %s\n", matrix[i++]);
+	{
+		ft_putstr_fd("declare -x ", 1);
+		ft_putstr_fd(matrix[i++], 1);
+		ft_putchar_fd('\n', 1);
+	}
 	return (1);
 }
 

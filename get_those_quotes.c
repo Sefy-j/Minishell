@@ -6,7 +6,7 @@
 /*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 20:26:43 by jlopez-f          #+#    #+#             */
-/*   Updated: 2022/05/18 18:57:47 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/18 19:57:03 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static char	*get_those_quotes(char *read, char quotes)
 	if (!new_read || g_interactive == 3)
 	{
 		p = ft_substr(read, 0, ft_strlen(read) - 1);
-		add_history(p);
+		ft_add_history(p);
 		free(p);
 		free(read);
 		free(new_read);
@@ -46,7 +46,7 @@ static char	*get_those_quotes(char *read, char quotes)
 			free(q);
 			q = ft_strjoin(read, new_read);
 			p = ft_substr(q, 0, ft_strlen(q) - 1);
-			add_history(p);
+			ft_add_history(p);
 			free(p);
 			free(read);
 			free(new_read);

@@ -6,7 +6,7 @@
 /*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:38 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/18 19:31:17 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/18 19:53:40 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ t_data	*all_the_parsing_is_here(char *read, char **env, int status)
 	read = check_those_quotes(read);
 	read = check_those_pipes(read);
 	if (*read)
-		add_history(read);
+		ft_add_history(read);
 	read = dollarsign(read, env, status);
 	cmds = ft_argvsplit(read);
 	free(read);
@@ -123,6 +123,7 @@ int	main(int argc, char *argv[], char *envp[])
 	no_ctrlprint();
 	status = 0;
 	signals_handlers();
+	ft_read_history();
 	//atexit(leaks);
 	while (1)
 	{

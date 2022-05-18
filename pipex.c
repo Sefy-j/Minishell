@@ -6,7 +6,7 @@
 /*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 19:38:27 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/18 19:31:31 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/18 20:09:28 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ static char	*get_path(char **envp, char *cmd1)
 		free(check_path);
 		check_path = ft_strjoin(all_paths[i], cmd1);
 	}
-	print_matrix_p(all_paths);
 	free(cmd1);
 	ft_free(all_paths);
 	free(p);
@@ -93,7 +92,6 @@ static void	exec_cmds(t_data *temp, int pipe_fd[2], char **env)
 		|| ft_strncmp(temp->cmds[0], "unset", 10) == 0)
 		exit(0);
 	path = get_path(env, temp->cmds[0]);
-	printf("%p\n", path);
 	if (exec_builtins(temp, env) == 1)
 		exit(0);
 	else if (execve(path, temp->cmds, env) == -1)
@@ -116,8 +114,6 @@ int	pipex(t_data *head, char **env)
 		if (pipe(pipe_fd) == -1)
 			return (-1);
 		pid = fork();
-		printf("pid: %d\n", pid);
-		printf("got here\n");
 		if (pid == -1)
 			exit(1);
 		if (pid == 0)
