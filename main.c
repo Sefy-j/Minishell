@@ -6,7 +6,7 @@
 /*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:38 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/17 19:18:03 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/18 19:31:17 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ t_data	*all_the_parsing_is_here(char *read, char **env, int status)
 
 	read = check_those_quotes(read);
 	read = check_those_pipes(read);
-	if(*read)
+	if (*read)
 		add_history(read);
 	read = dollarsign(read, env, status);
 	cmds = ft_argvsplit(read);
@@ -86,10 +86,10 @@ t_data	*all_the_parsing_is_here(char *read, char **env, int status)
 	i = -1;
 	head = parse_machine(cmds, &i);
 	temp = head;
-	while(cmds[i])
+	while (cmds[i])
 		ft_lstadd_back(&head, parse_machine(cmds, &i));
 	ft_free(cmds);
-	return(head);
+	return (head);
 }
 
 int	is_env_builtin(t_data *head)

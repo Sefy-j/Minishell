@@ -6,7 +6,7 @@
 /*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 14:13:18 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/17 19:14:46 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/18 18:51:10 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@ char	*check_those_pipes(char *read)
 		new_read = readline("> ");
 		if (!new_read || g_interactive == 3)
 		{
+			add_history(read);
+			free(read);
+			free(new_read);
 			g_interactive = 0;
 			return (ft_strdup(""));
 		}

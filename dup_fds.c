@@ -6,7 +6,7 @@
 /*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 21:11:19 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/17 19:55:12 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/18 18:47:17 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,27 +20,23 @@ static void	ft_writeheredoc(char *limiter, int *pfd)
 	len = ft_strlen(limiter);
 	while (limiter)
 	{
-		//write(1, "heredoc> ", 9);
-		//line = get_next_line(STDIN_FILENO);
 		line = readline(">");
-		if (!len || g_interactive == 2)
-		{
-			g_interactive = 0;
-			return ;
-		}
-		if (!line)
+		if (!line || g_interactive == 3)
 		{
 			close(pfd[0]);
 			close(pfd[1]);
+			g_interactive = 0;
 			exit(1);
 		}
-		if (!ft_strncmp(line, limiter, len) && line[len] == '\n')
+		if (!ft_strncmp(line, limiter, len))
 		{
 			close(pfd[0]);
 			close(pfd[1]);
+			g_interactive = 0;
 			exit(0);
 		}
 		ft_putstr_fd(line, pfd[1]);
+		ft_putstr_fd("\n", pfd[1]);
 		free(line);
 	}
 }
@@ -56,15 +52,15 @@ static void	ft_readheredoc(t_data *head, int i)
 	pid = fork();
 	if (pid == 0)
 	{
-		signals_handlers_child();
 		g_interactive = 2;
 		ft_writeheredoc(head->files[i], pfd);
-		g_interactive = 0;
 	}
 	close(pfd[1]);
 	dup2(pfd[0], STDIN_FILENO);
 	close(pfd[0]);
+	signals_handlers_default();
 	wait(NULL);
+	signals_handlers();
 }
 
 void	dup_fds(int pipe_fd[2], t_data *head)
