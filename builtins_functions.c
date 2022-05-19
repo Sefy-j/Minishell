@@ -6,7 +6,7 @@
 /*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 20:27:58 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/18 20:10:42 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/19 20:18:15 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int	ft_pwd(char **env)
 		if (ft_strncmp(env[i], "PWD=", 4) == 0)
 		{
 			ft_putstr_fd(ft_substr(env[i], 4, UINT_MAX), 1);
+			ft_putstr_fd("\n", 1);
 			return (1);
 		}
 	}
@@ -92,7 +93,10 @@ int	ft_echo(char **args)
 	if (new_line == 0)
 		i = 2;
 	if (!args[i])
+	{
+		ft_putstr_fd("\n", 1);
 		return (1);
+	}
 	ft_putstr_fd(args[i++], 1);
 	while (args[i])
 	{

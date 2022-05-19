@@ -6,7 +6,7 @@
 /*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 14:13:18 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/18 19:51:26 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/19 19:34:39 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ char	*check_those_pipes(char *read)
 	if (!read || !*read)
 		return (ft_strdup(""));
 	i = ft_strlen(read);
-	while (i >= 0 && (read[i] <= 32 || read[i] >= 127))
+	while (i > 0 && (read[i] <= 32 || read[i] >= 127))
 	{
 		i--;
 	}
-	if (read[i] == '|')
+	if (read && read[i] && read[i] == '|')
 	{
 		g_interactive = 2;
 		new_read = readline("> ");
