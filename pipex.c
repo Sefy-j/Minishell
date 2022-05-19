@@ -6,7 +6,7 @@
 /*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 19:38:27 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/17 19:55:50 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/18 20:09:28 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,35 @@ void	print_matrix_p(char **matrix)
 	if (!matrix)
 	{
 		printf("Matrix: NULL\n");
-		return;
+		return ;
 	}
 	printf("my matrix BIG: %p\n", matrix);
 	while (matrix[i])
 		printf("my matrix: %p\n", matrix[i++]);
 }
+
 static int	get_status(pid_t pid, int cmd_nbr)
 {
 	int	status;
+	int signal;
 
+	signals_handlers_default();
 	waitpid(pid, &status, 0);
-	while (cmd_nbr-- > 0)
+	while (--cmd_nbr > 0)
 		wait(NULL);
+	signals_handlers();
 	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
-	else
-		return (WSTOPSIG(status));
+	else if (WIFSIGNALED(status))
+	{
+		signal = 128 + WTERMSIG(status);
+		if (signal == 130)
+			ft_putstr_fd("^C\n", 1);
+		else if (signal == 131)
+			ft_putstr_fd("^\\Quit: 3\n", 1);
+		return (128 + WTERMSIG(status));
+	}
+	return (-1);
 }
 
 static char	*get_path(char **envp, char *cmd1)
@@ -61,7 +73,6 @@ static char	*get_path(char **envp, char *cmd1)
 		free(check_path);
 		check_path = ft_strjoin(all_paths[i], cmd1);
 	}
-	print_matrix_p(all_paths);
 	free(cmd1);
 	ft_free(all_paths);
 	free(p);
@@ -81,7 +92,6 @@ static void	exec_cmds(t_data *temp, int pipe_fd[2], char **env)
 		|| ft_strncmp(temp->cmds[0], "unset", 10) == 0)
 		exit(0);
 	path = get_path(env, temp->cmds[0]);
-	printf("%p\n", path);
 	if (exec_builtins(temp, env) == 1)
 		exit(0);
 	else if (execve(path, temp->cmds, env) == -1)
@@ -104,15 +114,10 @@ int	pipex(t_data *head, char **env)
 		if (pipe(pipe_fd) == -1)
 			return (-1);
 		pid = fork();
-		printf("pid: %d\n", pid);
-		printf("got here\n");
 		if (pid == -1)
 			exit(1);
 		if (pid == 0)
-		{
-			signals_handlers_child();
 			exec_cmds(temp, pipe_fd, env);
-		}
 		if (temp->next != NULL)
 			dup2(pipe_fd[0], STDIN_FILENO);
 		close(pipe_fd[0]);

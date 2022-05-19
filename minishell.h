@@ -6,7 +6,7 @@
 /*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:09:47 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/17 19:53:51 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/18 19:53:29 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <signal.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <sys/signal.h>
 # include <termios.h>
 # include "libft/libft.h"
 
@@ -87,10 +88,12 @@ void	ft_open_rightright(t_data *head, int i);
 void	could_not_open(char *file);
 char	*get_pwd(char **env);
 void	signals_handlers(void);
+void	signals_handlers_default(void);
 void	rl_replace_line(char *s, int a);
 char	*check_those_pipes(char *read);
 void	no_ctrlprint(void);
 void 	rl_redisplay (void);
-void	signals_handlers_child(void);
+void	ft_add_history(char *read);
+void	ft_read_history(void);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_functions.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 20:27:58 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/11 20:20:50 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/19 20:18:15 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ int	ft_pwd(char **env)
 	{
 		if (ft_strncmp(env[i], "PWD=", 4) == 0)
 		{
-			printf("%s\n", ft_substr(env[i], 4, UINT_MAX));
+			ft_putstr_fd(ft_substr(env[i], 4, UINT_MAX), 1);
+			ft_putstr_fd("\n", 1);
 			return (1);
 		}
 	}
@@ -65,7 +66,10 @@ int	print_matrix(char **matrix)
 	if (!matrix)
 		return (1);
 	while (matrix[i])
-		printf("%s\n", matrix[i++]);
+	{
+		ft_putstr_fd(matrix[i++], 1);
+		ft_putchar_fd('\n', 1);
+	}
 	return (1);
 }
 
@@ -89,11 +93,17 @@ int	ft_echo(char **args)
 	if (new_line == 0)
 		i = 2;
 	if (!args[i])
+	{
+		ft_putstr_fd("\n", 1);
 		return (1);
-	printf("%s", args[i++]);
+	}
+	ft_putstr_fd(args[i++], 1);
 	while (args[i])
-		printf(" %s", args[i++]);
+	{
+		ft_putchar_fd(' ', 1);
+		ft_putstr_fd(args[i++], 1);
+	}
 	if (new_line == 1)
-		printf("\n");
+		ft_putchar_fd('\n', 1);
 	return (1);
 }
