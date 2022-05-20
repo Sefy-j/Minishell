@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 13:46:32 by pvillena          #+#    #+#             */
-/*   Updated: 2022/02/10 15:06:00 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/20 14:28:52 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,10 @@ static char	*ft_read_buffer_size(char *buffer_read, int *n, int fd)
 	}
 	temp[*n] = '\0';
 	temp2 = ft_strjoin(buffer_read, temp);
-	if (buffer_read && temp)
-	{
+	if (temp)
 		free(temp);
+	if (buffer_read)
 		free(buffer_read);
-	}
 	return (temp2);
 }
 
