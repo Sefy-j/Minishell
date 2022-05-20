@@ -8,8 +8,11 @@ Hacer $? + $?
 Ctrl \ segun correccion hace algo, pero en bash no
 Quiza solucionar los ^C
 
+
+
+Hay una funcion en el printf que se llama char static en vez de static char??
 ----------------------------------------------------------------------
-¿LEAK EN GNL? en vez de doble condicion: Deberia estar solucionado UPDATEAR EN MAC
+¿LEAK EN GNL? en vez de doble condicion: Deberia estar solucionado 
 	if (temp)
 		free(temp);
 	if (buffer_read)
