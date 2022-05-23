@@ -6,7 +6,7 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:29:26 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/12 15:03:25 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/23 15:09:48 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,36 @@ int	count_strs(char **arr)
 	return (length);
 }
 
-char	*get_pwd(char **env)
+char	*get_oldpwd(char **env)
 {
 	int		i;
-	char	*path;
 
 	i = -1;
 	while (env[++i])
 	{
-		if (ft_strncmp(env[i], "PWD=", 4) == 0)
-		{
-			path = ft_substr(env[i], 4, UINT_MAX);
-			return (path);
-		}
+		if (ft_strncmp(env[i], "OLDPWD=", 7) == 0)
+			return (ft_substr(env[i], 7, UINT_MAX));
+		env++;
 	}
 	return (NULL);
+}
+
+char	*get_pwd(void)
+{
+	char	*str;
+	int		n;
+
+	n = 1;
+	str = NULL;
+	while (1)
+	{
+		str = malloc(sizeof(char) * n);
+		if (getcwd(str, n) == NULL)
+			free(str);
+		else
+			break ;
+		n++;
+	}
+	//printf("my path : %s\n", str);
+	return (str);
 }

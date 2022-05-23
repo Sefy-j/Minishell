@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_functions.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 20:27:58 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/20 14:17:14 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/23 14:52:32 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,20 @@ char	**ft_unset(char **args, char **env)
 	return (new_env);
 }
 
-int	ft_pwd(char **env)
+int	ft_pwd(void)
 {
-	int	i;
+	char	*str;
+	size_t	n;
 
-	i = -1;
-	while (env[++i])
+	n = 1;
+	str = NULL;
+	while (!str)
 	{
-		if (ft_strncmp(env[i], "PWD=", 4) == 0)
-		{
-			ft_putstr_fd(ft_substr(env[i], 4, UINT_MAX), 1);
-			ft_putstr_fd("\n", 1);
-			return (1);
-		}
+		str = malloc(sizeof(char) * n);
+		getcwd(str, n);
+		n++;
 	}
+	ft_putstr_fd(str, 1);
 	return (0);
 }
 

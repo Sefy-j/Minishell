@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:38 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/18 19:53:40 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/23 15:01:04 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ int	main(int argc, char *argv[], char *envp[])
 	status = 0;
 	signals_handlers();
 	ft_read_history();
-	//atexit(leaks);
+	atexit(leaks);
 	while (1)
 	{
 		std[0] = dup(STDIN_FILENO);

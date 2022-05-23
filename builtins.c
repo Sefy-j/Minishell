@@ -6,7 +6,7 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 18:31:04 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/11 20:08:36 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/23 13:56:22 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	exec_builtins(t_data *head, char **env)
 		exec = 1;
 	}
 	else if (ft_strncmp(head->cmds[0], "pwd", 10) == 0)
-		exec = ft_pwd(env);
+		exec = ft_pwd();
 	else if (ft_strncmp(head->cmds[0], "env", 10) == 0)
 		exec = print_matrix(env);
 	else if (ft_strncmp(head->cmds[0], "exit", 10) == 0)

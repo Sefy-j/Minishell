@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 19:38:27 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/18 20:09:28 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/23 13:19:31 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,10 @@ static char	*get_path(char **envp, char *cmd1)
 
 	if (!*cmd1 || !cmd1)
 		exit(1);
-	while (ft_strncmp(*envp, "PATH=", 5) != 0)
+	while (*envp && ft_strncmp(*envp, "PATH=", 5) != 0)
 		envp++;
+	if (!envp || !*envp)
+		return (NULL);
 	if (access(cmd1, F_OK) == 0)
 		return (cmd1);
 	cmd1 = ft_strjoin("/", cmd1);

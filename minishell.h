@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:09:47 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/18 19:53:29 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/23 15:10:33 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int		print_matrix(char **matrix);
 int		count_strs(char **arr);
 t_data	*parse_machine(char **cmds, int *i);
 int		ft_echo(char **args);
-int		ft_pwd(char **env);
+int		ft_pwd(void);
 char	**ft_export(char **args, char **env);
 char	**ft_unset(char **args, char **env);
 char	**ft_cd(char **args, char **env);
@@ -86,7 +86,8 @@ void	ft_open_left(t_data *head, int i);
 void	ft_open_right(t_data *head, int i);
 void	ft_open_rightright(t_data *head, int i);
 void	could_not_open(char *file);
-char	*get_pwd(char **env);
+char	*get_pwd(void);
+char	*get_oldpwd(char **env);
 void	signals_handlers(void);
 void	signals_handlers_default(void);
 void	rl_replace_line(char *s, int a);

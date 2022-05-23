@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_funct.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 20:57:52 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/18 20:20:24 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/23 15:10:17 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ char	*get_home(char **env)
 		}
 		env++;
 	}
+	ft_putstr_fd("minishell: cd : HOME not set\n", 1);
 	return (NULL);
 }
 
@@ -101,14 +102,18 @@ char	**ft_cd(char **args, char **env)
 	char	*path;
 	char	*new_dir;
 
-	path = get_pwd(env);
-	if (!args[1])
+	path = get_pwd();
+	if (!args[1] || ft_strncmp(args[1], "~", 5) == 0)
 		new_dir = get_home(env);
 	else if (ft_strncmp(args[1], "..", 5) == 0)
 		new_dir = back_one_dir(path);
+	else if (ft_strncmp(args[1], "-", 5) == 0)
+		new_dir = get_oldpwd(env);
 	else
 		new_dir = check_dir(args, path);
 	if (new_dir)
 		replace_pwd_oldpwd(new_dir, path, env);
+	free(path);
+	free(new_dir);
 	return (env);
 }
