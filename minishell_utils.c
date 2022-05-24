@@ -6,7 +6,7 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:29:26 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/23 15:09:48 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/24 17:42:28 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,16 @@ char	*get_pwd(void)
 	}
 	//printf("my path : %s\n", str);
 	return (str);
+}
+
+int	ft_isnumber(char *s)
+{
+	if (*s == '-' || *s == '+')
+		s++;
+	while (*s)
+	{
+		if (ft_isdigit(*s++) == 0)
+			return (0);
+	}
+	return (1);
 }

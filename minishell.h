@@ -6,7 +6,7 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:09:47 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/23 15:10:33 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/24 18:55:44 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,7 @@ void	no_ctrlprint(void);
 void 	rl_redisplay (void);
 void	ft_add_history(char *read);
 void	ft_read_history(void);
-
+int		atoexit(char const *str);
+void	ft_exit(char **cmds);
+int		ft_isnumber(char *s);
 #endif
