@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:38 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/23 15:01:04 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/24 17:30:07 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	leaks(void)
 	system("leaks minishell");
 }
 
-char	**double_pipes_and_files(char **cmds)
+char	**double_pipes_and_files(char **cmds, int *status)
 {
 	int	i;
 
@@ -55,18 +55,26 @@ char	**double_pipes_and_files(char **cmds)
 			return (NULL);
 		}
 		if (((cmds[i][0] == '<' || cmds[i][0] == '>')
-			&& (cmds[i + 1] && (cmds[i + 1][0] == '<'
+			&& (!cmds[i + 1] || (cmds[i + 1][0] == '<'
 			|| cmds[i + 1][0] == '>'))))
 		{	
-			write(2, "missing files\n", 14);
-			free(cmds);
+			ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
+			if (!cmds[i + 1])
+				ft_putstr_fd("newline'\n", 2);
+			else
+			{
+				ft_putstr_fd(cmds[i + 1], 2);
+				ft_putstr_fd("'\n", 2);
+			}
+			*status = 258;
+			ft_free(cmds);
 			return (NULL);
 		}
 	}
 	return (cmds);
 }
 
-t_data	*all_the_parsing_is_here(char *read, char **env, int status)
+t_data	*all_the_parsing_is_here(char *read, char **env, int *status)
 {
 	char	**cmds;
 	t_data	*head;
@@ -77,10 +85,10 @@ t_data	*all_the_parsing_is_here(char *read, char **env, int status)
 	read = check_those_pipes(read);
 	if (*read)
 		ft_add_history(read);
-	read = dollarsign(read, env, status);
+	read = dollarsign(read, env, *status);
 	cmds = ft_argvsplit(read);
 	free(read);
-	cmds = double_pipes_and_files(cmds);
+	cmds = double_pipes_and_files(cmds, status);
 	if (!cmds)
 		return (NULL);
 	i = -1;
@@ -124,7 +132,7 @@ int	main(int argc, char *argv[], char *envp[])
 	status = 0;
 	signals_handlers();
 	ft_read_history();
-	atexit(leaks);
+	//atexit(leaks);
 	while (1)
 	{
 		std[0] = dup(STDIN_FILENO);
@@ -137,7 +145,7 @@ int	main(int argc, char *argv[], char *envp[])
 			write(1, "exit\n", 6);
 			exit(1);
 		}
-		head = all_the_parsing_is_here(read, env, status);
+		head = all_the_parsing_is_here(read, env, &status);
 		if (!head)
 			continue ;
 		if (head->cmds && is_env_builtin(head) == 1)
