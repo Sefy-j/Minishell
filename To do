@@ -1,29 +1,4 @@
-Arreglar cd si no hay path etc. Tambien cd ~/ cd -
 Exit con argumentos. El valor de salida se modifica con unos limites
 si es mas de un arg da error etc. 
-Errores de missing files tienen que cambiar el status. Cambiar linea
-al error de bash.
-Añadir nombre del fallo en command not found. Igual falla
-Hacer $? + $?
-Ctrl \ segun correccion hace algo, pero en bash no
-Quiza solucionar los ^C
-
-
-
-Hay una funcion en el printf que se llama char static en vez de static char??
-----------------------------------------------------------------------
-¿LEAK EN GNL? en vez de doble condicion: Deberia estar solucionado 
-	if (temp)
-		free(temp);
-	if (buffer_read)
-		free(buffer_read);
-
-LEAK en check those pipes 
-if (!read)
-		return (ft_strdup(""));
-	if (!*read)
-		return (read);
-
-Multiples -n en el echo no deberian ser printeados
-
-	Deberia estar arreglado, pero logica muy fea. Comprobar
+//Añadir nombre del fallo en command not found. Igual falla
+//Hacer $? + $?
