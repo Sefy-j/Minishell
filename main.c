@@ -6,7 +6,7 @@
 /*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:38 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/24 17:30:07 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/24 18:42:42 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ char	**double_pipes_and_files(char **cmds, int *status)
 	{
 		if (cmds[i][0] == '|' && cmds[i + 1][0] == '|')
 		{
-			write(2, "syntax error\n", 13);
-			free(cmds);
+			ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
+			ft_free(cmds);
 			return (NULL);
 		}
 		if (((cmds[i][0] == '<' || cmds[i][0] == '>')
@@ -81,6 +81,7 @@ t_data	*all_the_parsing_is_here(char *read, char **env, int *status)
 	t_data	*temp;
 	int		i;
 
+	read = check_first_pipe(read);
 	read = check_those_quotes(read);
 	read = check_those_pipes(read);
 	if (*read)
@@ -142,7 +143,7 @@ int	main(int argc, char *argv[], char *envp[])
 		g_interactive = 0;
 		if (!read)
 		{
-			write(1, "exit\n", 6);
+			ft_putstr_fd("exit\n", 1);
 			exit(1);
 		}
 		head = all_the_parsing_is_here(read, env, &status);

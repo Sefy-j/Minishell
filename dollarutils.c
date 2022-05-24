@@ -6,7 +6,7 @@
 /*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 20:36:23 by jlopez-f          #+#    #+#             */
-/*   Updated: 2022/05/24 16:59:54 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/24 18:46:36 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,12 @@ static char	*novar(char *read, int *i, int len)
 	return (substit(read, NULL, i, len));
 }
 
+static void	minifree(char *var, char *p)
+{
+	free(var);
+	free(p);
+}
+
 char	*substitute_dollar(char *read, char **env, int *i, int status)
 {
 	int		len;
@@ -90,8 +96,7 @@ char	*substitute_dollar(char *read, char **env, int *i, int status)
 		k++;
 	if (!env[k])
 		return (novar(read, i, len));
-	free(var);
-	free(p);
+	minifree(var, p);
 	read = substit(read, ft_strdup(env[k] + len + 1), i, len);
 	return (read);
 }
