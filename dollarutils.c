@@ -6,7 +6,7 @@
 /*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 20:36:23 by jlopez-f          #+#    #+#             */
-/*   Updated: 2022/05/19 19:06:45 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/24 16:59:54 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ static char	*substit(char *read, char *insert, int *i, int dollen)
 	s.new = malloc(sizeof(char) * s.tlen[0]);
 	s = insertstr(s, read, insert, i);
 	free(read);
+	free(insert);
 	return (s.new);
 }
 
@@ -91,6 +92,6 @@ char	*substitute_dollar(char *read, char **env, int *i, int status)
 		return (novar(read, i, len));
 	free(var);
 	free(p);
-	read = substit(read, env[k] + len + 1, i, len);
+	read = substit(read, ft_strdup(env[k] + len + 1), i, len);
 	return (read);
 }
