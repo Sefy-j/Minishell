@@ -6,7 +6,7 @@
 /*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:38 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/24 18:42:42 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/24 20:23:16 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ int	main(int argc, char *argv[], char *envp[])
 	status = 0;
 	signals_handlers();
 	ft_read_history();
-	//atexit(leaks);
+	atexit(leaks);
 	while (1)
 	{
 		std[0] = dup(STDIN_FILENO);

@@ -6,7 +6,7 @@
 /*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 20:27:58 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/24 18:24:49 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/24 20:22:41 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	ft_echo(char **args)
 		}
 		i = 0;
 	}
-	if (args[j] && args[j][0] == '-')
+	if (args[1] && args[j] && args[j][0] == '-')
 	{
 		skip++;
 		while (args[j][++i])
@@ -114,9 +114,9 @@ int	ft_echo(char **args)
 		i = 2 + skip;
 	if (!args[i])
 	{
-		if (new_line)
+		if (new_line == 1)
 			ft_putstr_fd("\n", 1);
-		return (1);
+		return (0);
 	}
 	ft_putstr_fd(args[i++], 1);
 	while (args[i])

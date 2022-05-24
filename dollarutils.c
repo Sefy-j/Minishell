@@ -6,7 +6,7 @@
 /*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 20:36:23 by jlopez-f          #+#    #+#             */
-/*   Updated: 2022/05/24 18:46:36 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/24 20:08:35 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,9 @@ char	*substitute_dollar(char *read, char **env, int *i, int status)
 	j = i[0];
 	while (env[k] && ft_strncmp(var, env[k], len + 1))
 		k++;
+	minifree(var, p);
 	if (!env[k])
 		return (novar(read, i, len));
-	minifree(var, p);
 	read = substit(read, ft_strdup(env[k] + len + 1), i, len);
 	return (read);
 }
