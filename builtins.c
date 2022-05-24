@@ -6,7 +6,7 @@
 /*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 18:31:04 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/24 19:01:47 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/24 20:19:44 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ void	ft_exit(char **cmds)
 {
 	int nbr;
 
-	print_matrix(cmds);
 	if (!cmds[1])
 		exit(0);
 	if (ft_isnumber(cmds[1]) == 0 || ft_strlen(cmds[1]) > 20)
@@ -98,7 +97,10 @@ void	ft_exit(char **cmds)
 		exit(255);
 	}
 	else if (cmds[2])
-		ft_putstr_fd("minishell: exit: too many arguments", 2);
+	{
+		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
+		return ;
+	}
 	nbr = atoexit(cmds[1]);
 	exit(nbr);
 }
