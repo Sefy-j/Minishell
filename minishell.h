@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:09:47 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/23 15:10:33 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/24 18:44:28 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,9 @@ void	signals_handlers_default(void);
 void	rl_replace_line(char *s, int a);
 char	*check_those_pipes(char *read);
 void	no_ctrlprint(void);
-void 	rl_redisplay (void);
+void	rl_redisplay(void);
 void	ft_add_history(char *read);
 void	ft_read_history(void);
+char	*check_first_pipe(char *read);
 
 #endif
