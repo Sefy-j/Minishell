@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_functions.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 20:27:58 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/23 14:52:32 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/24 18:24:49 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,17 @@ int	ft_pwd(void)
 
 	n = 1;
 	str = NULL;
-	while (!str)
+	while (1)
 	{
 		str = malloc(sizeof(char) * n);
-		getcwd(str, n);
+		if (getcwd(str, n) == NULL)
+			free(str);
+		else
+			break ;
 		n++;
 	}
 	ft_putstr_fd(str, 1);
+	ft_putstr_fd("\n", 1);
 	return (0);
 }
 
@@ -70,7 +74,7 @@ int	print_matrix(char **matrix)
 		ft_putstr_fd(matrix[i++], 1);
 		ft_putchar_fd('\n', 1);
 	}
-	return (1);
+	return (0);
 }
 
 int	ft_echo(char **args)
@@ -122,5 +126,5 @@ int	ft_echo(char **args)
 	}
 	if (new_line == 1)
 		ft_putchar_fd('\n', 1);
-	return (1);
+	return (0);
 }

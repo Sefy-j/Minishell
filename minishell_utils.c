@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:29:26 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/23 15:09:48 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/24 18:14:54 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,5 @@ char	*get_pwd(void)
 			break ;
 		n++;
 	}
-	//printf("my path : %s\n", str);
 	return (str);
 }
