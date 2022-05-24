@@ -68,3 +68,15 @@ char	*get_pwd(void)
 	}
 	return (str);
 }
+
+int	ft_isnumber(char *s)
+{
+	if (*s == '-' || *s == '+')
+		s++;
+	while (*s)
+	{
+		if (ft_isdigit(*s++) == 0)
+			return (0);
+	}
+	return (1);
+}
