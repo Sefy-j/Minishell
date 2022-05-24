@@ -6,7 +6,7 @@
 /*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 18:31:04 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/24 18:43:25 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/24 19:01:47 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	**env_builtins(t_data *head, char **env)
 	else if (ft_strncmp(head->cmds[0], "cd", 10) == 0)
 		env = ft_cd(head->cmds, env);
 	else if (ft_strncmp(head->cmds[0], "exit", 10) == 0)
-		exit(0);
+		ft_exit(head->cmds);
 	return (env);
 }
 
@@ -76,11 +76,29 @@ int	exec_builtins(t_data *head, char **env)
 		exec = print_matrix(env);
 	else if (ft_strncmp(head->cmds[0], "exit", 10) == 0)
 	{
-		if (head)
-			ft_lstclear(&head);
 		if (env)
 			ft_free(env);
-		exit(0);
+		ft_exit(head->cmds);
 	}
 	return (exec);
+}
+
+void	ft_exit(char **cmds)
+{
+	int nbr;
+
+	print_matrix(cmds);
+	if (!cmds[1])
+		exit(0);
+	if (ft_isnumber(cmds[1]) == 0 || ft_strlen(cmds[1]) > 20)
+	{
+		ft_putstr_fd("minishell: exit: ", 2);
+		ft_putstr_fd(cmds[1], 2);
+		ft_putstr_fd(": numeric argument required\n", 2);
+		exit(255);
+	}
+	else if (cmds[2])
+		ft_putstr_fd("minishell: exit: too many arguments", 2);
+	nbr = atoexit(cmds[1]);
+	exit(nbr);
 }
