@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 19:38:27 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/23 13:19:31 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/24 18:19:06 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,13 @@ static void	exec_cmds(t_data *temp, int pipe_fd[2], char **env)
 		|| ft_strncmp(temp->cmds[0], "unset", 10) == 0)
 		exit(0);
 	path = get_path(env, temp->cmds[0]);
-	if (exec_builtins(temp, env) == 1)
+	if (exec_builtins(temp, env) == 0)
 		exit(0);
 	else if (execve(path, temp->cmds, env) == -1)
 	{
-		write(2, "command not found\n", 18);
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(temp->cmds[0], 2);
+		ft_putstr_fd(": command not found\n", 2);
 		exit(127);
 	}
 }

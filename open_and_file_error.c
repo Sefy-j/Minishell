@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_and_file_error.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 20:01:45 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/11 20:08:16 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/24 18:02:02 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ft_open_rightright(t_data *head, int i)
 
 void	could_not_open(char *file)
 {
-	write(2, "minishell: ", 11);
-	write(2, file, ft_strlen(file));
-	write(2, ": could not open file or directory\n", 35);
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(file, 2);
+	ft_putstr_fd(": could not open file or directory\n", 2);
 }

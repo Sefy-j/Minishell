@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 18:31:04 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/23 13:56:22 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/24 18:43:25 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,13 @@ int	exec_builtins(t_data *head, char **env)
 {
 	int	exec;
 
-	exec = 0;
+	exec = 1;
 	if (ft_strncmp(head->cmds[0], "echo", 10) == 0)
 		exec = ft_echo(head->cmds);
 	else if (ft_strncmp(head->cmds[0], "export", 10) == 0)
 	{
 		env = ft_export(head->cmds, env);
-		exec = 1;
+		exec = 0;
 	}
 	else if (ft_strncmp(head->cmds[0], "pwd", 10) == 0)
 		exec = ft_pwd();
