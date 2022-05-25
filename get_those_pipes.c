@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_those_pipes.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 14:13:18 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/24 18:37:02 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/25 13:14:03 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,22 @@ char	*check_first_pipe(char *read)
 	return (read);
 }
 
+static char	*signal_case(char *read, char *new_read)
+{
+	ft_add_history(read);
+	free(read);
+	if (new_read)
+		free(new_read);
+	g_interactive = 0;
+	return (ft_strdup(""));
+}
+
+static void	free_p_new_read(char *p, char *new_read)
+{
+	free(p);
+	free(new_read);
+}
+
 char	*check_those_pipes(char *read)
 {
 	int		i;
@@ -51,18 +67,11 @@ char	*check_those_pipes(char *read)
 		g_interactive = 2;
 		new_read = readline("> ");
 		if (!new_read || g_interactive == 3)
-		{
-			ft_add_history(read);
-			free(read);
-			free(new_read);
-			g_interactive = 0;
-			return (ft_strdup(""));
-		}
+			return (signal_case(read, new_read));
 		g_interactive = 0;
 		p = read;
 		read = ft_strjoin(read, new_read);
-		free(p);
-		free(new_read);
+		free_p_new_read(p, new_read);
 		read = check_those_quotes(read);
 		read = check_those_pipes(read);
 	}

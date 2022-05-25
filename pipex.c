@@ -6,30 +6,16 @@
 /*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 19:38:27 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/24 20:23:28 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/25 17:44:03 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_matrix_p(char **matrix)
-{
-	int i = 0;
-
-	if (!matrix)
-	{
-		printf("Matrix: NULL\n");
-		return ;
-	}
-	printf("my matrix BIG: %p\n", matrix);
-	while (matrix[i])
-		printf("my matrix: %p\n", matrix[i++]);
-}
-
 static int	get_status(pid_t pid, int cmd_nbr)
 {
 	int	status;
-	int signal;
+	int	signal;
 
 	signals_handlers_default();
 	waitpid(pid, &status, 0);
@@ -50,6 +36,13 @@ static int	get_status(pid_t pid, int cmd_nbr)
 	return (-1);
 }
 
+static void	free_my_vars(char *cmd1, char **all_paths, char *p)
+{
+	free(cmd1);
+	ft_free(all_paths);
+	free(p);
+}
+
 static char	*get_path(char **envp, char *cmd1)
 {
 	char	**all_paths;
@@ -57,7 +50,7 @@ static char	*get_path(char **envp, char *cmd1)
 	char	*p;
 	int		i;
 
-	if (!*cmd1 || !cmd1)
+	if (!cmd1 || !*cmd1 || !envp || !*envp)
 		exit(1);
 	while (*envp && ft_strncmp(*envp, "PATH=", 5) != 0)
 		envp++;
@@ -75,9 +68,7 @@ static char	*get_path(char **envp, char *cmd1)
 		free(check_path);
 		check_path = ft_strjoin(all_paths[i], cmd1);
 	}
-	free(cmd1);
-	ft_free(all_paths);
-	free(p);
+	free_my_vars(cmd1, all_paths, p);
 	return (check_path);
 }
 
@@ -93,10 +84,10 @@ static void	exec_cmds(t_data *temp, int pipe_fd[2], char **env)
 	else if (ft_strncmp(temp->cmds[0], "cd", 5) == 0
 		|| ft_strncmp(temp->cmds[0], "unset", 10) == 0)
 		exit(0);
-	path = get_path(env, temp->cmds[0]);
 	if (exec_builtins(temp, env) == 0)
 		exit(0);
-	else if (execve(path, temp->cmds, env) == -1)
+	path = get_path(env, temp->cmds[0]);
+	if (execve(path, temp->cmds, env) == -1)
 	{
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(temp->cmds[0], 2);

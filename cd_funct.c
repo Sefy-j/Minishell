@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_funct.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 20:57:52 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/23 15:10:17 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/25 17:44:36 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ char	**ft_cd(char **args, char **env)
 	char	*path;
 	char	*new_dir;
 
+	if (!env)
+		return (NULL);
 	path = get_pwd();
 	if (!args[1] || ft_strncmp(args[1], "~", 5) == 0)
 		new_dir = get_home(env);
