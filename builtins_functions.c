@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_functions.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 20:27:58 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/25 12:55:56 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/25 18:00:35 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	**ft_unset(char **args, char **env)
 
 	i[0] = -1;
 	new_env = NULL;
-	if (!env)
+	if (!env || !*env)
 		return (new_env);
 	while (env[++i[0]])
 	{
