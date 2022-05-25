@@ -6,7 +6,7 @@
 /*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 20:36:23 by jlopez-f          #+#    #+#             */
-/*   Updated: 2022/05/24 20:08:35 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/25 18:08:10 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,13 @@ static char	*novar(char *read, int *i, int len)
 	return (substit(read, NULL, i, len));
 }
 
-static void	minifree(char *var, char *p)
+static void	mininit(int *len, int *i, int *j, int *k)
 {
-	free(var);
-	free(p);
+	*len = 0;
+	i[0]++;
+	*j = i[0] - 1;
+	*k = 0;
+	i[1] = 1;
 }
 
 char	*substitute_dollar(char *read, char **env, int *i, int status)
@@ -80,13 +83,11 @@ char	*substitute_dollar(char *read, char **env, int *i, int status)
 	char	*var;
 	char	*p;
 
-	len = 0;
-	i[0]++;
-	j = i[0] - 1;
-	k = 0;
-	i[1] = 1;
+	mininit(&len, i, &j, &k);
 	if (read[i[0]] == '?')
 		return (substit(read, ft_itoa(status), i, 1));
+	if (!env || !*env)
+		return (novar(read, i, len));
 	while (read[++j] && (ft_isalpha(read[j]) || read[j] == '_'))
 		len++;
 	p = ft_substr(read, i[0], len);
@@ -94,7 +95,8 @@ char	*substitute_dollar(char *read, char **env, int *i, int status)
 	j = i[0];
 	while (env[k] && ft_strncmp(var, env[k], len + 1))
 		k++;
-	minifree(var, p);
+	free(var);
+	free(p);
 	if (!env[k])
 		return (novar(read, i, len));
 	read = substit(read, ft_strdup(env[k] + len + 1), i, len);
