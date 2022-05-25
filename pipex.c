@@ -3,33 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 19:38:27 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/24 20:23:28 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/25 13:45:06 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_matrix_p(char **matrix)
-{
-	int i = 0;
-
-	if (!matrix)
-	{
-		printf("Matrix: NULL\n");
-		return ;
-	}
-	printf("my matrix BIG: %p\n", matrix);
-	while (matrix[i])
-		printf("my matrix: %p\n", matrix[i++]);
-}
-
 static int	get_status(pid_t pid, int cmd_nbr)
 {
 	int	status;
-	int signal;
+	int	signal;
 
 	signals_handlers_default();
 	waitpid(pid, &status, 0);
@@ -48,6 +34,13 @@ static int	get_status(pid_t pid, int cmd_nbr)
 		return (128 + WTERMSIG(status));
 	}
 	return (-1);
+}
+
+static void	free_my_vars(char *cmd1, char **all_paths, char *p)
+{
+	free(cmd1);
+	ft_free(all_paths);
+	free(p);
 }
 
 static char	*get_path(char **envp, char *cmd1)
@@ -75,9 +68,7 @@ static char	*get_path(char **envp, char *cmd1)
 		free(check_path);
 		check_path = ft_strjoin(all_paths[i], cmd1);
 	}
-	free(cmd1);
-	ft_free(all_paths);
-	free(p);
+	free_my_vars(cmd1, all_paths, p);
 	return (check_path);
 }
 
