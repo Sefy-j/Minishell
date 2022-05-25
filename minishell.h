@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:09:47 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/24 18:44:28 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/25 13:52:53 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,6 @@ char	*check_first_pipe(char *read);
 int		atoexit(char const *str);
 void	ft_exit(char **cmds);
 int		ft_isnumber(char *s);
+char	**double_pipes_and_files(char **cmds, int *status);
 
 #endif

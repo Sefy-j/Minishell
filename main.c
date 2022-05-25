@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:38 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/24 20:23:16 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/25 13:49:21 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,64 +14,10 @@
 
 int	g_interactive = 0;
 
-void	print_struct(t_data head)
-{
-	int	i;
-
-	i = -1;
-	if (head.cmds)
-	{
-		while (head.cmds[++i])
-			printf("head cmds: %s\n", head.cmds[i]);
-	}
-	i = -1;
-	if (head.files)
-	{
-		while (head.files[++i])
-			printf("head files: %s\n", head.files[i]);
-	}
-	if (head.dir)
-		printf("head dir: %s\n", head.dir);
-}
 
 void	leaks(void)
 {
 	system("leaks minishell");
-}
-
-char	**double_pipes_and_files(char **cmds, int *status)
-{
-	int	i;
-
-	if (!cmds)
-		return (NULL);
-	i = -1;
-	while (cmds[++i])
-	{
-		if (cmds[i][0] == '|' && cmds[i + 1][0] == '|')
-		{
-			ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
-			ft_free(cmds);
-			return (NULL);
-		}
-		if (((cmds[i][0] == '<' || cmds[i][0] == '>')
-			&& (!cmds[i + 1] || (cmds[i + 1][0] == '<'
-			|| cmds[i + 1][0] == '>'))))
-		{	
-			ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
-			if (!cmds[i + 1])
-				ft_putstr_fd("newline'\n", 2);
-			else
-			{
-				ft_putstr_fd(cmds[i + 1], 2);
-				ft_putstr_fd("'\n", 2);
-			}
-			*status = 258;
-			ft_free(cmds);
-			return (NULL);
-		}
-	}
-	return (cmds);
 }
 
 t_data	*all_the_parsing_is_here(char *read, char **env, int *status)
