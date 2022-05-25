@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_funct.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 17:49:19 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/25 13:07:17 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/25 17:53:11 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static char	**print_matrix_export(char **matrix)
 	int	i;
 
 	i = 0;
-	if (!matrix)
+	if (!matrix || !*matrix)
 		return (NULL);
 	while (matrix[i])
 	{
@@ -72,7 +72,7 @@ char	**ft_export(char **args, char **env)
 	int		j;
 
 	i = 0;
-	if (!args[1])
+	if (!args[1] || !env || !*env)
 		return (print_matrix_export(env));
 	while (args[++i])
 	{

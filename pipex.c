@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 19:38:27 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/25 13:45:06 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/25 17:44:03 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static char	*get_path(char **envp, char *cmd1)
 	char	*p;
 	int		i;
 
-	if (!*cmd1 || !cmd1)
+	if (!cmd1 || !*cmd1 || !envp || !*envp)
 		exit(1);
 	while (*envp && ft_strncmp(*envp, "PATH=", 5) != 0)
 		envp++;
@@ -84,10 +84,10 @@ static void	exec_cmds(t_data *temp, int pipe_fd[2], char **env)
 	else if (ft_strncmp(temp->cmds[0], "cd", 5) == 0
 		|| ft_strncmp(temp->cmds[0], "unset", 10) == 0)
 		exit(0);
-	path = get_path(env, temp->cmds[0]);
 	if (exec_builtins(temp, env) == 0)
 		exit(0);
-	else if (execve(path, temp->cmds, env) == -1)
+	path = get_path(env, temp->cmds[0]);
+	if (execve(path, temp->cmds, env) == -1)
 	{
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(temp->cmds[0], 2);

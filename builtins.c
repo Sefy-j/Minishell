@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 18:31:04 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/25 12:48:33 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/25 17:33:08 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	change_shlvl(char **env)
 	char	*sub;
 	int		nbr;
 
+	if (!env || !*env)
+		return ;
 	while (ft_strncmp(*env, "SHLVL=", 6))
 		env++;
 	sub = ft_substr(*env, 6, UINT_MAX);
@@ -35,6 +37,8 @@ char	**copy_matrix(char **envp)
 	char	**env;
 	char	**ret;
 
+	if (!envp)
+		return (NULL);
 	env = malloc(sizeof(char *) * (count_strs(envp) + 1));
 	if (!env)
 		return (NULL);
