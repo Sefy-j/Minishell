@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_funct.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 17:49:19 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/18 20:05:56 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/25 13:06:12 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,20 +48,20 @@ static char	*replace_line(char *replace, char *with)
 	return (ft_strdup(with));
 }
 
-static int	print_matrix_export(char **matrix)
+static char	**print_matrix_export(char **matrix)
 {
 	int	i;
 
 	i = 0;
 	if (!matrix)
-		return (1);
+		return (NULL);
 	while (matrix[i])
 	{
 		ft_putstr_fd("declare -x ", 1);
 		ft_putstr_fd(matrix[i++], 1);
 		ft_putchar_fd('\n', 1);
 	}
-	return (1);
+	return (matrix);
 }
 
 char	**ft_export(char **args, char **env)
@@ -73,10 +73,7 @@ char	**ft_export(char **args, char **env)
 
 	i = 0;
 	if (!args[1])
-	{
-		print_matrix_export(env);
-		return (env);
-	}
+		return (print_matrix_export(env));
 	while (args[++i])
 	{
 		flag = check_var(args[i]);
