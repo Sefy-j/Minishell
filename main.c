@@ -6,19 +6,13 @@
 /*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:38 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/25 13:49:21 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/25 14:02:30 by pvillena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int	g_interactive = 0;
-
-
-void	leaks(void)
-{
-	system("leaks minishell");
-}
 
 t_data	*all_the_parsing_is_here(char *read, char **env, int *status)
 {
@@ -63,23 +57,17 @@ int	is_env_builtin(t_data *head)
 		return (0);
 }
 
-int	main(int argc, char *argv[], char *envp[])
+static void	exit_no_read(void)
 {
-	char	*read;
-	t_data	*head;
-	char	**env;
-	int		std[2];
-	int		status;
+	ft_putstr_fd("exit\n", 1);
+	exit(1);
+}
 
-	if (argc != 1 || argv[1] || !envp)
-		return (0);
-	env = copy_matrix(envp);
-	change_shlvl(env);
-	no_ctrlprint();
-	status = 0;
-	signals_handlers();
-	ft_read_history();
-	atexit(leaks);
+void	start_minishell(char **env, int status, char *read)
+{
+	int		std[2];
+	t_data	*head;
+
 	while (1)
 	{
 		std[0] = dup(STDIN_FILENO);
@@ -88,10 +76,7 @@ int	main(int argc, char *argv[], char *envp[])
 		read = readline(GREEN"minishell> "RESET);
 		g_interactive = 0;
 		if (!read)
-		{
-			ft_putstr_fd("exit\n", 1);
-			exit(1);
-		}
+			exit_no_read();
 		head = all_the_parsing_is_here(read, env, &status);
 		if (!head)
 			continue ;
@@ -103,5 +88,23 @@ int	main(int argc, char *argv[], char *envp[])
 		dup2(STDOUT_FILENO, std[1]);
 		ft_lstclear(&head);
 	}
+}
+
+int	main(int argc, char *argv[], char *envp[])
+{
+	char	*read;
+	char	**env;
+	int		status;
+
+	read = NULL;
+	if (argc != 1 || argv[1] || !envp)
+		return (0);
+	env = copy_matrix(envp);
+	change_shlvl(env);
+	no_ctrlprint();
+	status = 0;
+	signals_handlers();
+	ft_read_history();
+	start_minishell(env, status, read);
 	return (0);
 }
