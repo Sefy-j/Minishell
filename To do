@@ -1,6 +1,5 @@
 Heredoc no expande variables en EOF
 Si fallo abriendo archivo sigo ejecutando. Deberia parar
 export B sin igual, añade una variable vacia SOLO cuando hago export sin argumentos. En env no
-echo -n -n -n -n no funciona pasadas dos -n
 Exit status de syntax error no esta seteado. Mirar errores propios de bash, no de otros programas
 cd explota si le quitas la carpeta superior
