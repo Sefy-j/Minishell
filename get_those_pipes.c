@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   get_those_pipes.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 14:13:18 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/25 13:14:03 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/30 20:01:39 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*check_first_pipe(char *read)
+char	*check_first_pipe(char *read, int *status)
 {
-	int		i;
+	int	i;
 
 	if (!read)
 		return (ft_strdup(""));
@@ -26,6 +26,7 @@ char	*check_first_pipe(char *read)
 	if (read[i] == '|')
 	{
 		ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
+		*status = 258;
 		ft_add_history(read);
 		free(read);
 		return (ft_strdup(""));

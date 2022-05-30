@@ -6,7 +6,7 @@
 /*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 19:38:27 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/25 17:44:03 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/30 19:40:43 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ static char	*get_path(char **envp, char *cmd1)
 		exit(1);
 	while (*envp && ft_strncmp(*envp, "PATH=", 5) != 0)
 		envp++;
-	if (!envp || !*envp)
-		return (NULL);
 	if (access(cmd1, F_OK) == 0)
 		return (cmd1);
+	if (!envp || !*envp)
+		return (NULL);
 	cmd1 = ft_strjoin("/", cmd1);
 	p = ft_substr(*envp, 5, INT_MAX);
 	all_paths = ft_split(*envp, ':');
