@@ -6,7 +6,7 @@
 /*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:41:33 by jlopez-f          #+#    #+#             */
-/*   Updated: 2022/05/30 17:28:04 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/30 17:45:48 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ static char	*dollarquote(char *read, char **env, int *i, int status)
 			read = substitute_dollar(read, env, i, status);
 		else
 			i[0]++;
-		printf("Char %c\n", read[i[0]]);
 	}
 	i[0]++;
 	return (read);
