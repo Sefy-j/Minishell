@@ -6,7 +6,7 @@
 /*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:10:38 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/25 17:49:35 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/30 20:01:14 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_data	*all_the_parsing_is_here(char *read, char **env, int *status)
 	t_data	*temp;
 	int		i;
 
-	read = check_first_pipe(read);
+	read = check_first_pipe(read, status);
 	read = check_those_quotes(read);
 	read = check_those_pipes(read);
 	if (*read)
@@ -30,8 +30,8 @@ t_data	*all_the_parsing_is_here(char *read, char **env, int *status)
 	cmds = ft_argvsplit(read);
 	free(read);
 	cmds = double_pipes_and_files(cmds, status);
-	if (!cmds)
-		return (NULL);
+	if (!cmds || !*cmds)
+		return (freecmdslst(cmds));
 	i = -1;
 	head = parse_machine(cmds, &i);
 	temp = head;

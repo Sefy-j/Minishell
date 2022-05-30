@@ -6,7 +6,7 @@
 /*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 13:48:14 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/30 19:07:58 by jlopez-f         ###   ########.fr       */
+/*   Updated: 2022/05/30 19:52:40 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 static char	**syntax_error_pipe(char **cmds, int *status)
 {
 	ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
-	ft_free(cmds);
 	*status = 258;
+	ft_free(cmds);
 	return (NULL);
 }
 

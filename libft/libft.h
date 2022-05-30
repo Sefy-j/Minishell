@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 22:54:33 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/12 17:21:31 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/30 19:59:45 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,6 @@ void	ft_hex(unsigned int n, int *print, char c);
 void	ft_print_hex(unsigned int n, int *print, char c);
 void	ft_address(unsigned long int n, int *print);
 char	**ft_free(char **result);
+t_data	*freecmdslst(char **result);
+
 #endif
