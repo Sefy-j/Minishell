@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 12:55:36 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/25 13:02:54 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/30 18:43:21 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ int	check_echo_args(char **args, int i, int j, int *new_line)
 		}
 		i = 0;
 	}
-	if (args[1] && args[j] && args[j][0] == '-')
+	while (args[1] && args[j] && args[j][0] == '-')
 	{
 		skip++;
 		while (args[j][++i])
 		{
 			if ('n' != args[j][i])
-				skip--;
+				return (--skip);
 		}
 		j++;
 		i = 0;
