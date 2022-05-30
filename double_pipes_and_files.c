@@ -3,19 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   double_pipes_and_files.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvillena <pvillena@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlopez-f <jlopez-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 13:48:14 by pvillena          #+#    #+#             */
-/*   Updated: 2022/05/25 13:54:30 by pvillena         ###   ########.fr       */
+/*   Updated: 2022/05/30 19:07:58 by jlopez-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	**syntax_error_pipe(char **cmds)
+static char	**syntax_error_pipe(char **cmds, int *status)
 {
 	ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
 	ft_free(cmds);
+	*status = 258;
 	return (NULL);
 }
 
@@ -44,7 +45,7 @@ char	**double_pipes_and_files(char **cmds, int *status)
 	while (cmds[++i])
 	{
 		if (cmds[i][0] == '|' && cmds[i + 1][0] == '|')
-			return (syntax_error_pipe(cmds));
+			return (syntax_error_pipe(cmds, status));
 		if (((cmds[i][0] == '<' || cmds[i][0] == '>')
 			&& (!cmds[i + 1] || (cmds[i + 1][0] == '<'
 			|| cmds[i + 1][0] == '>'))))
